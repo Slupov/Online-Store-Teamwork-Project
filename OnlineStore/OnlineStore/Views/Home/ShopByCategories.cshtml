@@ -1,15 +1,38 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ShopByCategories";
-    ViewBag.Category = "Empty";
 }
 
 <h2>Shop By Categories</h2>
 
 <div>
-@{
     @Html.ActionLink("Button-Down Shirts", "Index", "Products")
-    ViewBag.Category = "Button-Down Shirts";
-}<br />
+    @{
+        ViewBag.Category = "Button-Down Shirts"; //those dont work ?? FIX THIS
+    }
+    <br />
+
+    @Html.ActionLink("Smart TVs", "Index", "Products")
+    @{
+        ViewBag.Category = "Smart TVs";
+    }
+    <br />
+
+    @Html.ActionLink("Smart Phones", "Index", "Products")
+    @{
+        ViewBag.Category = "Smart Phones";
+    }
+    <br />
+
+    @Html.ActionLink("Earbud Headphones", "Index", "Products")
+    @{
+        ViewBag.Category = "Button-Down Shirts";
+    }
+    <br />
+
+    @Html.ActionLink("Laptop", "Index", "Products")
+    @{
+        ViewBag.Category = "Laptop";
+    }
+    <br />
 </div>
 
