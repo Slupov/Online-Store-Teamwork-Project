@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    ViewBag.Category = "Button-Down Shirts";
 }
 
 <!--TODO : INSERT HERE CATEGORY LINKS !!!-->
@@ -40,7 +41,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Where(i => i.ProductType == ViewBag.Category)) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.ProductID)
@@ -67,11 +68,12 @@
             @Html.DisplayFor(modelItem => item.Member.Username)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
         </td>
     </tr>
+    
 }
 
 </table>

@@ -26,5 +26,12 @@ namespace OnlineStore.Controllers
 
             return View();
         }
+
+        public ActionResult ShopByCategories()
+        {
+            ViewBag.Message = "Your categories.";
+
+            return View();
+        }
     }
 }
