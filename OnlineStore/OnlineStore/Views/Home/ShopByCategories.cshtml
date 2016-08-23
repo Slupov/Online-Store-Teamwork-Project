@@ -1,54 +1,15 @@
-﻿@*<script type="text/javascript">
-    alert("Srah tuk.")
-    function categoryChange(category) {
-    @{
-        <text>
-        ViewBag.Category = (string)category
-        <text>
-    }
-    
-</script>*@
-@*@{
-    ViewBag.Title = "ShopByCategories";
-}*@
-
+﻿@model IEnumerable<string>
 <h2>Shop By Categories</h2>
 
 <div>
-    <!--//{
-        Session.Add("Category", "Button-Down Shirts"); //those dont work ?? FIX THIS
-    }
-    //Html.ActionLink("Button-Down Shirts", "Index", "Products") <!--This redirects before the viewbag changes-->
+
     
-    <a href="http://localhost:54329/Products" id="Button-Down-Tag">Button-Down Shirts</a>
-    <br />
-    <a href="http://localhost:54329/Products" id="Small-Appliances-Tag">Small Appliances</a>
-    <br />
-    <!--
-    @{
-        ViewBag.Category = "Smart TVs";
+    @foreach (string category in Model)
+    {
+        @Html.ActionLink(category, "ListCategory", "Products", new {category = category}, null)
+        <br/>
     }
-    @Html.ActionLink("Smart TVs", "Index", "Products")
-    <br />
 
-    @{
-        ViewBag.Category = "Smart Phones";
-    }
-    @Html.ActionLink("Smart Phones", "Index", "Products")
-    <br />
-
-    @{
-        ViewBag.Category = "Earbud Headphones";
-    }
-    @Html.ActionLink("Earbud Headphones", "Index", "Products")
-    <br />
-
-    @{
-        ViewBag.Category = "Laptop";
-    }
-    @Html.ActionLink("Laptop", "Index", "Products")
-    <br />
-    -->
 </div>
 
 

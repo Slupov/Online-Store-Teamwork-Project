@@ -128,5 +128,14 @@ namespace OnlineStore.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult ListCategory(string category)
+        {
+            ViewBag.Messege = "Listing " + category;
+
+            var products = db.Products.Where(p => p.ProductType.Equals(category)).ToList();
+
+            return View(products);
+        }
     }
 }

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using OnlineStore.Models;
 
 namespace OnlineStore.Controllers
 {
     public class HomeController : Controller
     {
+        private OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
+
         public ActionResult Index()
         {
             return View();
@@ -30,8 +33,8 @@ namespace OnlineStore.Controllers
         public ActionResult ShopByCategories()
         {
             ViewBag.Message = "Your categories.";
-
-            return View();
+            var categories = db.Products.Select(p => p.ProductType).Distinct();
+            return View(categories);
         }
     }
 }
