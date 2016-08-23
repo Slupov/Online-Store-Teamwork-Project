@@ -1,38 +1,54 @@
-﻿@{
+﻿@*<script type="text/javascript">
+    alert("Srah tuk.")
+    function categoryChange(category) {
+    @{
+        <text>
+        ViewBag.Category = (string)category
+        <text>
+    }
+    
+</script>*@
+@*@{
     ViewBag.Title = "ShopByCategories";
-}
+}*@
 
 <h2>Shop By Categories</h2>
 
 <div>
-    @Html.ActionLink("Button-Down Shirts", "Index", "Products")
-    @{
-        ViewBag.Category = "Button-Down Shirts"; //those dont work ?? FIX THIS
+    <!--//{
+        Session.Add("Category", "Button-Down Shirts"); //those dont work ?? FIX THIS
     }
+    //Html.ActionLink("Button-Down Shirts", "Index", "Products") <!--This redirects before the viewbag changes-->
+    
+    <a href="http://localhost:54329/Products" id="Button-Down-Tag">Button-Down Shirts</a>
     <br />
-
-    @Html.ActionLink("Smart TVs", "Index", "Products")
+    <a href="http://localhost:54329/Products" id="Small-Appliances-Tag">Small Appliances</a>
+    <br />
+    <!--
     @{
         ViewBag.Category = "Smart TVs";
     }
+    @Html.ActionLink("Smart TVs", "Index", "Products")
     <br />
 
-    @Html.ActionLink("Smart Phones", "Index", "Products")
     @{
         ViewBag.Category = "Smart Phones";
     }
+    @Html.ActionLink("Smart Phones", "Index", "Products")
     <br />
 
-    @Html.ActionLink("Earbud Headphones", "Index", "Products")
     @{
-        ViewBag.Category = "Button-Down Shirts";
+        ViewBag.Category = "Earbud Headphones";
     }
+    @Html.ActionLink("Earbud Headphones", "Index", "Products")
     <br />
 
-    @Html.ActionLink("Laptop", "Index", "Products")
     @{
         ViewBag.Category = "Laptop";
     }
+    @Html.ActionLink("Laptop", "Index", "Products")
     <br />
+    -->
 </div>
+
 

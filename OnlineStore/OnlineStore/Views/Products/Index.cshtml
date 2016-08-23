@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    ViewBag.Category = "Laptop"; // TODO: make this change on click
+    ViewBag.Category = "Smart Phones";
 }
 
 
@@ -40,7 +40,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.Where(i => i.ProductType == ViewBag.Category)) {
+@foreach (var item in Model.Where(i => i.ProductType == (string)ViewBag.Category)) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.ProductID)
