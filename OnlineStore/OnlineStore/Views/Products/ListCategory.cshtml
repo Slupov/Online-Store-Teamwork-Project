@@ -62,7 +62,7 @@
             @Html.DisplayFor(modelItem => item.ImageSource)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Member.Username)
+            @Html.ActionLink(item.Member.Username, "Details", "Members", new {id=item.MemberID}, null)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
