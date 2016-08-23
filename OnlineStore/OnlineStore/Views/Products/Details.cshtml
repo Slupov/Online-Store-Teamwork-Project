@@ -70,5 +70,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to "+@Model.ProductType, "ListCategory", "Products", new {category=@Model.ProductType},null)
 </p>

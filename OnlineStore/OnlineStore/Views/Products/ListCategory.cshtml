@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.ProductID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
+            @Html.ActionLink(item.ProductName, "Details", "Products", new {id=item.ProductID}, null)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductType)
