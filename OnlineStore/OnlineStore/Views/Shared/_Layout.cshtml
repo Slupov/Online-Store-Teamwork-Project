@@ -11,15 +11,6 @@
         OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
         ViewBag.Categories = db.Products.Select(p => p.ProductType).Distinct().ToList();
     }
-
-    <script>
-    function searchProduct() {
-        let searchedProduct = document.getElementsByName("searchedProduct")
-        let searchedCategory = $_POST['categories']
-        //contains
-
-    }
-    </script>
  
 </head>
 <body>

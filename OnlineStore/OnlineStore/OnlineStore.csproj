@@ -1182,8 +1182,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\UserLayout.cshtml" />
-    <Content Include="Views\Shared\GuestLayout.cshtml" />
     <Content Include="Views\Home\ShopByCategories.cshtml" />
     <Content Include="Views\Members\Create.cshtml" />
     <Content Include="Views\Members\Delete.cshtml" />
