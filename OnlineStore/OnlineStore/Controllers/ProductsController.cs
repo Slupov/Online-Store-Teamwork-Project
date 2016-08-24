@@ -131,14 +131,14 @@ namespace OnlineStore.Controllers
 
 
 
-        public ActionResult FilterProducts(string category=null, string[] filters=null, int minPrice=-1, int maxPrice=-1,string searchTerms=null)
+        public ActionResult FilterProducts(string category = null, string[] filters = null, int minPrice = -1, int maxPrice = -1, string searchTerms = null)
         {
 
             ViewBag.Messege = "Listing " + category;
 
             var products = db.Products.ToList();
 
-            if (category != null)
+            if (category != null && category != "All categories")
             {
                 products = products.Where(p => p.ProductType.Equals(category)).ToList();
             }
