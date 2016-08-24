@@ -129,11 +129,40 @@ namespace OnlineStore.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult ListCategory(string category)
+
+
+        public ActionResult ListCategory(string category=null, string[] filters=null, int minPrice=-1, int maxPrice=-1,string searchTerms=null)
         {
+
             ViewBag.Messege = "Listing " + category;
 
-            var products = db.Products.Where(p => p.ProductType.Equals(category)).ToList();
+            var products = db.Products.ToList();
+
+            if (category != null)
+            {
+                products = products.Where(p => p.ProductType.Equals(category)).ToList();
+            }
+
+            if (searchTerms != null)
+            {
+                foreach (string term in searchTerms.Split(' '))
+                {
+                    products = products.Where(p => p.ProductName.ToLower().Contains(term.ToLower())).ToList();
+                }
+            }
+
+            if (minPrice > 0)
+            {
+                products = products.Where(p => p.Price > minPrice).ToList();
+            }
+
+            if (maxPrice > 0)
+            {
+                products = products.Where(p => p.Price < maxPrice).ToList();
+            }
+
+            ViewBag.minPrice = minPrice;
+            ViewBag.maxPrice = maxPrice;
 
             return View(products);
         }

@@ -27,6 +27,9 @@
                     <li>@Html.ActionLink("Shop", "Index", "Products")</li> <!--TO DO: Fix this -> should be a drop down menu with categories-->
                     <li>@Html.ActionLink("Users", "Index", "Members")</li>
                     <li>@Html.ActionLink("Categories", "ShopByCategories", "Home")</li>
+                    <li>@Html.BeginForm("ListCategory", "Products"){
+                        <input type="text" name="searchTerms"/><input type="submit"/>
+                    }</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

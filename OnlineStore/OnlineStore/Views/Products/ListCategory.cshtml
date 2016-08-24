@@ -1,4 +1,6 @@
-﻿@model IEnumerable<OnlineStore.Models.Product>
+﻿@using System.Web.UI.WebControls
+@using OnlineStore.Controllers
+@model IEnumerable<OnlineStore.Models.Product>
 
 @{
     ViewBag.Title = "Index";
@@ -9,6 +11,20 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+
+@using (Html.BeginForm("ListCategory", "Products"))
+{
+    <input type="text" name="minPrice" value="@ViewBag.minPrice"/>
+    <input type="text" name="maxPrice" value="@ViewBag.maxPrice"/>
+    <ul name="filters">
+        <li><input type="checkbox" name="smart"/>Smart</li>
+        <li><input type="checkbox" name="curved"/>Curved</li>
+        <li><input type="checkbox" name="fourk"/>4K Ultra HD</li>
+    </ul>
+    <input type="submit" value="Filter"/>
+}
+
 <table class="table">
     <tr>
         <th>
