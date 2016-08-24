@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+actionLinkButton{
+    background:white;
+    border-radius: 5px;
+}

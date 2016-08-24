@@ -13,7 +13,7 @@
 </p>
 
 
-@using (Html.BeginForm("ListCategory", "Products"))
+@using (Html.BeginForm("FilterProducts", "Products"))
 {
     <input type="text" name="minPrice" value="@ViewBag.minPrice"/>
     <input type="text" name="maxPrice" value="@ViewBag.maxPrice"/>

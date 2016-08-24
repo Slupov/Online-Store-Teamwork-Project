@@ -131,7 +131,7 @@ namespace OnlineStore.Controllers
 
 
 
-        public ActionResult ListCategory(string category=null, string[] filters=null, int minPrice=-1, int maxPrice=-1,string searchTerms=null)
+        public ActionResult FilterProducts(string category=null, string[] filters=null, int minPrice=-1, int maxPrice=-1,string searchTerms=null)
         {
 
             ViewBag.Messege = "Listing " + category;
