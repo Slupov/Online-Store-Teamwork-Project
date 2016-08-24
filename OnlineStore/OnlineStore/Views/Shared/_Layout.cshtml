@@ -33,7 +33,8 @@
                     <li>@Html.ActionLink("Users", "Index", "Members")</li>
                     <li>@Html.ActionLink("Categories", "ShopByCategories", "Home")</li>
                     <li>
-                        @Html.BeginForm("FilterProducts", "Products"){
+                        @using (Html.BeginForm("FilterProducts", "Products"))
+                        {
                         <input type="text" name="searchTerms"/><
                         <select name="category">
                             <option name="All categories">All categories</option>
