@@ -6,7 +6,21 @@
     <title>@ViewBag.Title - PSGM ONLINE STORE</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @using OnlineStore.Models;
+    @{
+        OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
+        ViewBag.Categories = db.Products.Select(p => p.ProductType).Distinct().ToList();
+    }
 
+    <script>
+    function searchProduct() {
+        let searchedProduct = document.getElementsByName("searchedProduct")
+        let searchedCategory = $_POST['categories']
+        //contains
+
+    }
+    </script>
+ 
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,13 +36,22 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <!--<li>//Html.ActionLink("About", "About", "Home")</li>-->
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Shop", "Index", "Products")</li> <!--TO DO: Fix this -> should be a drop down menu with categories-->
+                    <li>@Html.ActionLink("Shop", "Index", "Products")</li> 
                     <li>@Html.ActionLink("Users", "Index", "Members")</li>
                     <li>@Html.ActionLink("Categories", "ShopByCategories", "Home")</li>
-                    <li>@Html.BeginForm("ListCategory", "Products"){
-                        <input type="text" name="searchTerms"/><input type="submit"/>
+                    <li>
+                        @Html.BeginForm("FilterProducts", "Products"){
+                        <input type="text" name="searchTerms"/><
+                        <select name="category">
+                            <option name="All categories">All categories</option>
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <option name=@category>@category</option>
+                            }
+                        </select>
+                        <input type="submit"/>
                     }</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
