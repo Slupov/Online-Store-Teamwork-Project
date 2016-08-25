@@ -152,9 +152,12 @@ namespace OnlineStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                Member dbUser = new Member { Email = model.Email, Username = model.Username, Password = System.Text.Encoding.ASCII.GetBytes(model.Password) };
+
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                Member dbUser = new Member { Email = model.Email, Username = model.Email, Password = System.Text.Encoding.ASCII.GetBytes(model.Password) };
+
                 db.Members.Add(dbUser);
                 db.SaveChanges();
                 if (result.Succeeded)
