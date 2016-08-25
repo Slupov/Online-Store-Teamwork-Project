@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Details";
+    string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + Model.ImageSource;
+    string[] descriptionListItems = Model.Description.Split(';').ToArray();
 }
 
 <h2>Details</h2>
@@ -31,7 +33,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            <!--Description list items not printing out-->
+            <ul>
+                @foreach (var li in descriptionListItems)
+                {
+                    Html.Raw(li);
+                }
+            </ul>
+
         </dd>
 
         <dt>
@@ -55,7 +64,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImageSource)
+            <img style="-webkit-user-select: none" src=@imgSrc>
         </dd>
 
         <dt>
@@ -70,5 +79,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
-    @Html.ActionLink("Back to "+@Model.ProductType, "FilterProducts", "Products", new {category=@Model.ProductType},null)
+    @Html.ActionLink("Back to " + @Model.ProductType, "FilterProducts", "Products", new { category = @Model.ProductType }, null)
 </p>

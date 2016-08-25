@@ -55,6 +55,7 @@
     </tr>
 
 @foreach (var item in Model) {
+ string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + item.ImageSource;
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.ProductID)
@@ -75,7 +76,7 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ImageSource)
+            <img style="-webkit-user-select: none" src=@imgSrc>
         </td>
         <td>
             @Html.ActionLink(item.Member.Username, "Details", "Members", new {id=item.MemberID}, null)
