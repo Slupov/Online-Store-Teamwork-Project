@@ -26,3 +26,16 @@ actionLinkButton{
     background:white;
     border-radius: 5px;
 }
+.floated_img
+{
+  display: inline-block;
+  width: 200px;
+  height:200px;
+}
+
+.floated_img img{
+max-width:200px;
+  max-height:200px;
+  width: auto;
+  height: auto;
+}
