@@ -17,7 +17,8 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button
+                         type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -32,18 +33,19 @@
                     <li>@Html.ActionLink("Shop", "Index", "Products")</li> 
                     <li>@Html.ActionLink("Users", "Index", "Members")</li>
                     <li>@Html.ActionLink("Categories", "ShopByCategories", "Home")</li>
-                    <li>
+                    <li id="searchBox">
                         @using (Html.BeginForm("FilterProducts", "Products"))
                         {
-                        <input type="text" name="searchTerms"/><
-                        <select name="category">
-                            <option name="All categories">All categories</option>
+                        <input type="text" id="search_Text" name="search_Text" placeholder="Search..."/>
+                        <input type="submit" name="search_button" id="search_button" />
+
+                        <select name="category" class="searchSelect">
+                            <option name="All categories" class="searchSelectOption">All categories</option>
                             @foreach (var category in ViewBag.Categories)
                             {
                                 <option name=@category>@category</option>
                             }
                         </select>
-                        <input type="submit"/>
                     }</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

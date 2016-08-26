@@ -22,20 +22,90 @@ select,
 textarea {
     max-width: 280px;
 }
-actionLinkButton{
-    background:white;
+
+actionLinkButton {
+    background: white;
     border-radius: 5px;
 }
-.floated_img
-{
-  display: inline-block;
-  width: 200px;
-  height:200px;
+
+.floated_img {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
 }
 
-.floated_img img{
-max-width:200px;
-  max-height:200px;
-  width: auto;
-  height: auto;
+    .floated_img img {
+        max-width: 200px;
+        max-height: 200px;
+        width: auto;
+        height: auto;
+    }
+
+#searchBox {
+    width: 500px;
+    margin-top: 10px;
+    margin-left: 25px;
+
 }
+
+#search_Text {
+    width: 225px;
+    padding: 15px 0 15px 20px;
+    font-size: 16px;
+    font-family: Montserrat, sans-serif;
+    border: 0 none;
+    height: 10px;
+    margin-right: 0;
+    color: white;
+    outline: none;
+    background: #1f7f5c;
+    float: left;
+    box-sizing: border-box;
+    transition: all 0.15s;
+    border-radius: 15px 0px 0px 15px;
+}
+
+#search_button {
+    border: 0 none;
+    background: white;
+    width: 60px;
+    /*float: right;*/
+    padding: 0;
+    text-align: center;
+    height: 30px;
+    cursor: pointer;
+    color : #a9a9a9;
+    border-radius: 0px 15px 15px 0px;
+   
+
+}
+
+select {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -webkit-padding-end: 20px;
+    -moz-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -moz-padding-start: 2px;
+    background-color: white; /* fallback color if gradients are not supported */
+    background-position: center right;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    border-radius: 2px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    color: #a9a9a9;
+    font-size: inherit;
+    margin: 0;
+    overflow: hidden;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 10px;
+    height: 30px;
+    cursor: pointer;
+
+}
+
