@@ -33,11 +33,11 @@
         </dt>
 
         <dd>
-            <!--Description list items not printing out-->
             <ul>
                 @foreach (var li in descriptionListItems)
                 {
-                    Html.Raw(li);
+                    string actualLi = li.Substring(4, li.Length - 9);
+                    <li>@actualLi</li>
                 }
             </ul>
 

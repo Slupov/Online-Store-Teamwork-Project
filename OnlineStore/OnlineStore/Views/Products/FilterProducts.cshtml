@@ -55,7 +55,8 @@
     </tr>
 
 @foreach (var item in Model) {
- string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + item.ImageSource;
+    string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + item.ImageSource;
+    string[] descriptionListItems = item.Description.Split(';').ToArray();
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.ProductID)
@@ -67,7 +68,14 @@
             @Html.DisplayFor(modelItem => item.ProductType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            <ul>
+                @foreach (var li in descriptionListItems)
+                {
+                    string actualLi = li.Substring(4, li.Length - 9);
+                    <li>@actualLi</li>
+                }
+            </ul>
+                      @*@Html.DisplayFor(modelItem => item.Description)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Stock)
