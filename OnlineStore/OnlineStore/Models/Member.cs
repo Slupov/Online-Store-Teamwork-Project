@@ -11,7 +11,7 @@ namespace OnlineStore.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Member
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,27 +20,24 @@ namespace OnlineStore.Models
             this.Carts = new HashSet<Cart>();
             this.Comments = new HashSet<Comment>();
             this.Products = new HashSet<Product>();
-            this.Ratings = new HashSet<Rating>();
             this.Transactions = new HashSet<Transaction>();
         }
-
+    
         public int MemberID { get; set; }
         public string Username { get; set; }
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
         public string Email { get; set; }
         public string Fullname { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
-        public DateTime? BirthDate { get; set; }
-
+        public Nullable<System.DateTime> BirthDate { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rating> Ratings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
     }

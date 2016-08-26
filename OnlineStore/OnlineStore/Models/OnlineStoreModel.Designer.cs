@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'c:\users\stoyan\documents\visual studio 2015\Projects\OnlineStore\OnlineStore\Models\OnlineStoreModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Github\Online-Store-Teamwork-Project\OnlineStore\OnlineStore\Models\OnlineStoreModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

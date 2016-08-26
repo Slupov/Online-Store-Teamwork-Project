@@ -15,11 +15,10 @@ namespace OnlineStore.Models
     public partial class Rating
     {
         public int RatingID { get; set; }
-        public int MemberID { get; set; }
+        public int Amount { get; set; }
         public int ProductID { get; set; }
         public int Value { get; set; }
     
-        public virtual Member Member { get; set; }
         public virtual Product Product { get; set; }
     }
 }

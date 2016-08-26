@@ -18,6 +18,8 @@ namespace OnlineStore.Models
         public int MemberID { get; set; }
         public int ProductID { get; set; }
         public string Message { get; set; }
+        public string Title { get; set; }
+        public int Rating { get; set; }
     
         public virtual Member Member { get; set; }
         public virtual Product Product { get; set; }

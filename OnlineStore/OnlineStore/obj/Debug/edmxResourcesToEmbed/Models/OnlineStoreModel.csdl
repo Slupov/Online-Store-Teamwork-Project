@@ -19,6 +19,8 @@
     <Property Name="MemberID" Type="Int32" Nullable="false" />
     <Property Name="ProductID" Type="Int32" Nullable="false" />
     <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Rating" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Member" Relationship="Self.MemberComment" FromRole="Comment" ToRole="Member" />
     <NavigationProperty Name="Product" Relationship="Self.ProductComment" FromRole="Comment" ToRole="Product" />
   </EntityType>
@@ -28,7 +30,7 @@
     </Key>
     <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Password" Type="Binary" MaxLength="64" FixedLength="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -37,7 +39,6 @@
     <NavigationProperty Name="Carts" Relationship="Self.MemberCart" FromRole="Member" ToRole="Cart" />
     <NavigationProperty Name="Comments" Relationship="Self.MemberComment" FromRole="Member" ToRole="Comment" />
     <NavigationProperty Name="Products" Relationship="Self.MemberProduct" FromRole="Member" ToRole="Product" />
-    <NavigationProperty Name="Ratings" Relationship="Self.MemberRating" FromRole="Member" ToRole="Rating" />
     <NavigationProperty Name="Transactions" Relationship="Self.TransactionMember" FromRole="Member" ToRole="Transaction" />
   </EntityType>
   <EntityType Name="Product">
@@ -45,7 +46,7 @@
       <PropertyRef Name="ProductID" />
     </Key>
     <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ProductType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Stock" Type="Int32" Nullable="false" />
@@ -62,11 +63,10 @@
     <Key>
       <PropertyRef Name="RatingID" />
     </Key>
-    <Property Name="RatingID" Type="Int32" Nullable="false" />
-    <Property Name="MemberID" Type="Int32" Nullable="false" />
+    <Property Name="RatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
     <Property Name="ProductID" Type="Int32" Nullable="false" />
-    <Property Name="Value" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="Member" Relationship="Self.MemberRating" FromRole="Rating" ToRole="Member" />
+    <Property Name="Value" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Product" Relationship="Self.FK_Rating_Product" FromRole="Rating" ToRole="Product" />
   </EntityType>
   <EntityType Name="sysdiagram">
@@ -151,18 +151,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="MemberRating">
-    <End Role="Member" Type="Self.Member" Multiplicity="1" />
-    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Member">
-        <PropertyRef Name="MemberID" />
-      </Principal>
-      <Dependent Role="Rating">
-        <PropertyRef Name="MemberID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="TransactionMember">
     <End Role="Member" Type="Self.Member" Multiplicity="1" />
     <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
@@ -227,10 +215,6 @@
       <End Role="Member" EntitySet="Members" />
       <End Role="Product" EntitySet="Products" />
     </AssociationSet>
-    <AssociationSet Name="MemberRating" Association="Self.MemberRating">
-      <End Role="Member" EntitySet="Members" />
-      <End Role="Rating" EntitySet="Ratings" />
-    </AssociationSet>
     <AssociationSet Name="TransactionMember" Association="Self.TransactionMember">
       <End Role="Member" EntitySet="Members" />
       <End Role="Transaction" EntitySet="Transactions" />
@@ -243,5 +227,46 @@
       <End Role="Product" EntitySet="Products" />
       <End Role="Transaction" EntitySet="Transactions" />
     </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(OnlineStorePSGMModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(OnlineStorePSGMModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
   </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
 </Schema>

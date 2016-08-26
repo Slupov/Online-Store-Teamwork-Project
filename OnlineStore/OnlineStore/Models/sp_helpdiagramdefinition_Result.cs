@@ -10,16 +10,10 @@
 namespace OnlineStore.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Cart
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int CartID { get; set; }
-        public int MemberID { get; set; }
-        public int ProductID { get; set; }
-        public int Quantity { get; set; }
-    
-        public virtual Member Member { get; set; }
-        public virtual Product Product { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
