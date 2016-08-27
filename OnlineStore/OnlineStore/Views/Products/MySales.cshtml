@@ -44,7 +44,8 @@
 
     @foreach (var item in Model)
     {
-    count++;
+        count++;
+        string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + item.ImageSource;
     <tr>
         <td>
             @count
@@ -68,7 +69,9 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ImageSource)
+            <div class="floated_img">
+                <img style="-webkit-user-select: none" src=@imgSrc>
+            </div>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.MemberID }) |
