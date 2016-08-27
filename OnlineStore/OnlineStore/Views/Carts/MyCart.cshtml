@@ -1,0 +1,91 @@
+﻿@using System.Web.UI.WebControls
+@using OnlineStore.Controllers
+@using Microsoft.AspNet.Identity
+@using OnlineStore.Models;
+@model IEnumerable<OnlineStore.Models.Cart>
+@{ 
+    OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
+}
+@{
+    ViewBag.Title = "MyCart";
+    var aspUserName = User.Identity.GetUserName();
+    var count = 0;
+}
+
+<h2>@aspUserName 's Cart</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Product Number
+        </th>
+        <th>
+            Seller
+        </th>
+        <th>
+           ProductName
+        </th>
+
+        <th>
+            ProductType
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Cart Quantity
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+           ImageSource
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        count++;
+        var product = db.Products.Where(p => p.ProductID == item.ProductID).First();
+        var seller = db.Members.Where(m => m.MemberID == product.MemberID).First();
+        string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + product.ImageSource;
+
+        <tr>
+            <td>
+                @count
+            </td>
+            <td>
+                @seller.Username
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => product.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => product.ProductType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => product.Description)
+            </td>
+            <td>
+                Add functionality
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => product.Price)
+            </td>
+            <td>
+                <div class="floated_img">
+                    <img style="-webkit-user-select: none" src=@imgSrc>
+                </div>
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MemberID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MemberID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MemberID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<h2>Total count : @count</h2>

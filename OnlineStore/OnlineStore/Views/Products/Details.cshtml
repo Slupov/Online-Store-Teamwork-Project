@@ -1,11 +1,35 @@
 ﻿@model OnlineStore.Models.Product
+@using Microsoft.AspNet.Identity
+@using OnlineStore.Models;
+@{
+    OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
+}
 
 @{
     ViewBag.Title = "Details";
     string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + Model.ImageSource;
     string[] descriptionListItems = Model.Description.Split(';').ToArray();
+    ViewBag.ProductName = Model.ProductName;
+
+    var aspUserName = User.Identity.GetUserName();
+    var dbUser = db.Members.Where(m => m.Username == aspUserName).First();
 }
 
+<script>
+    $("#myLink").click(function(e){
+
+        e.preventDefault();
+
+        $.ajax({
+
+        success: function(){
+            alert("Value Added");  // or any other indication if you want to show
+        }
+
+    });
+
+    });
+</script>
 <h2>Details</h2>
 
 <div>
@@ -80,5 +104,6 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
     @Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }) |
-    @Html.ActionLink("Back to " + @Model.ProductType, "FilterProducts", "Products", new { category = @Model.ProductType }, null)
+    @Html.ActionLink("Back to " + @Model.ProductType, "FilterProducts", "Products", new { category = @Model.ProductType }, null) |
+    @Html.ActionLink("ADD TO CART", "AddToCart", null, new { id = "myLink" })
 </p>
