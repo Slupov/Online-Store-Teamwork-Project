@@ -1215,6 +1215,7 @@
     <Content Include="Views\Transactions\Index.cshtml" />
     <Content Include="Views\Products\FilterProducts.cshtml" />
     <Content Include="Views\Products\MySales.cshtml" />
+    <Content Include="Views\Carts\MyCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

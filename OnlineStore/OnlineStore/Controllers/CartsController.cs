@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OnlineStore.Models;
+using Microsoft.AspNet.Identity;
 
 namespace OnlineStore.Controllers
 {
@@ -131,6 +132,29 @@ namespace OnlineStore.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult MyCart()
+        {
+            var aspUserName = User.Identity.GetUserName();
+            var dbUser = db.Members.Where(m => m.Username == aspUserName).First(); // db user <-> asp user linked by Username
+            var myCartItems = db.Carts.Where(c => c.MemberID == dbUser.MemberID); // returns only the logged user's cart
+
+            return View(myCartItems);
+        }
+
+        //POST add cartItem in database
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public void AddToCart([Bind(Include = "CartID,MemberID,ProductID")] Cart cart)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Carts.Add(cart);
+                db.SaveChanges();
+            }
+
+            ViewBag.MemberID = new SelectList(db.Members, "MemberID", "Username", cart.MemberID);
         }
     }
 }
