@@ -14,6 +14,33 @@ namespace OnlineStore.Controllers
     public class ProductsController : Controller
     {
         private OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
+        private Dictionary<string, string[]> filtersByCategory = new Dictionary<string, string[]>
+        {
+            {"TV",new string[] {"Smart","Curved","4K", "LG", "Samsung"} },
+            {"Earbud Headphones",new string[] {"Panasonic","Sony","Apple"} },
+            {"On-Ear Headphones",new string[] {"Beats","Amazon","Koss","Sennheiser"} },
+            {"Over-Ear Headphones",new string[] {"Sennheiser", "Bose", "LilGadgets", "Beats"  } },
+            {"Home Theater Systems",new string[] {"Samsung","Bose","Sony"} },
+            {"Surround Sound Systems",new string[] {"5.1"} },
+            {"Speakers",new string[] { "Klipsch","Edifier","Polk","Floorstanding","Bookshelf" } },
+            {"Subwoofers",new string[] {"Polk","Acoustic","Yamaha"}},
+            {"Blu-ray Players",new string[] { "Sony", "Samsung", "Panasonic" } },
+            {"DSLR Cameras",new string[] {"Nikon","Canon","Kit"} },
+            {"Mirrorless Cameras",new string[] {"Sony","Panasonic","Fujifilm","Nikon"} },
+            {"Camera Lenses",new string[] { "Canon", "Sony", "Samsung" } },
+            {"Smart Phones",new string[] {"Samsung","Apple","LG","Moto"} },
+            {"Phone Cases",new string[] {"Iphone","Samsung","LG"} },
+            {"Phone Accessories",new string[] {"USD","SD","Protector"} },
+            {"Tower PCs",new string[] {"Dell","Asus","Acer","Lenovo","HP"} },
+            {"PC Monitors",new string[] {"Acer","Dell","Asus","Samsung"} },
+            {"Tablets",new string[] {"Samsung","Apple","Nexus","Android","Tablet PC"} },
+            {"Laptops",new string[] {"Apple","Acer","Asus","HP"} },
+            {"Mice",new string[] {"Logitech","Microsoft","HP"} },
+            {"Keyboards",new string[] {"Microsoft","Apple","Logitech","Razer"} },
+            {"Drives & Storage",new string[] {"Samsung","Seagate","WD","SanDisk"} },
+            {"",new string[] {} },
+
+        };
 
         // GET: Products
         public ActionResult Index()
@@ -132,14 +159,28 @@ namespace OnlineStore.Controllers
 
 
 
-        public ActionResult FilterProducts(string category = null, string[] filters = null, int minPrice = -1, int maxPrice = -1, string searchTerms = null)
+        public ActionResult FilterProducts(string category = "",
+                                            string[] filters = null,
+                                            string[] checkedFilters = null,
+                                            string minPriceInput = "",
+                                            string maxPriceInput = "",
+                                            string searchTerms = null)
         {
 
             ViewBag.Messege = "Listing " + category;
 
             var products = db.Products.ToList();
+            filters = filtersByCategory[category];
 
-            if (category != null && category != "All categories")
+
+            if (checkedFilters != null)
+            {
+                foreach (string filter in checkedFilters)
+                {
+                    products = products.Where(p => p.ProductName.ToLower().Contains(filter.ToLower())).ToList();
+                }
+            }
+            if (category != "" && category != "All categories")
             {
                 products = products.Where(p => p.ProductType.Equals(category)).ToList();
             }
@@ -152,16 +193,15 @@ namespace OnlineStore.Controllers
                 }
             }
 
-            if (minPrice > 0)
-            {
-                products = products.Where(p => p.Price > minPrice).ToList();
-            }
+            double minPrice = minPriceInput == "" ? products.Select(p => p.Price).Min() : double.Parse(minPriceInput) -1;
+            double maxPrice = maxPriceInput == "" ? products.Select(p => p.Price).Max() : double.Parse(maxPriceInput) +1;
 
-            if (maxPrice > 0)
-            {
-                products = products.Where(p => p.Price < maxPrice).ToList();
-            }
+            products = products.Where(p => p.Price > minPrice).ToList();
+            products = products.Where(p => p.Price < maxPrice).ToList();
 
+            ViewBag.category = category;
+            ViewBag.filters = filters;
+            ViewBag.searchTerms = searchTerms;
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
 

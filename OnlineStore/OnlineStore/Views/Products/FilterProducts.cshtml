@@ -1,6 +1,8 @@
 ﻿@using System.Web.UI.WebControls
 @using OnlineStore.Controllers
 @model IEnumerable<OnlineStore.Models.Product>
+<script type="text/javascript" src="/scripts/jquery-1.10.2.min.js"></script>
+
 
 @{
     ViewBag.Title = "Index";
@@ -13,26 +15,131 @@
 </p>
 
 
-@using (Html.BeginForm("FilterProducts", "Products"))
-{
-    <input type="text" name="minPrice" value="@ViewBag.minPrice"/>
-    <input type="text" name="maxPrice" value="@ViewBag.maxPrice"/>
-    <ul name="filters">
-        <li><input type="checkbox" name="smart"/>Smart</li>
-        <li><input type="checkbox" name="curved"/>Curved</li>
-        <li><input type="checkbox" name="fourk"/>4K Ultra HD</li>
-    </ul>
-    <input type="submit" value="Filter"/>
-}
 
-@foreach (var item in Model)
-{
-    string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + item.ImageSource;
-    string[] descriptionListItems = item.Description.Split(';').ToArray();
-    double price = item.Price;
-    <div class="floated_img">
-        <img style="-webkit-user-select: none" src=@imgSrc>
-        <p>@Html.ActionLink(@item.ProductName,"Details","Products", new { id = item.ProductID }, null)</p>
-        <p>@price $</p>
-    </div>
-}
+<div id="filterPanel">
+    <span>minPrice</span>
+    <div id="min-price-selector"></div>
+    <div id="minPrice">@ViewBag.minPrice</div>
+    <br />
+    <span>maxPrice</span>
+    <div id="max-price-selector"></div>
+    <div id="maxPrice">@ViewBag.maxPrice</div>
+    <div id="filters"></div>
+</div>
+<input type="button" value="Filter" onclick="filterProducts()" />
+
+
+<div id="products-panel">
+    @foreach (var item in Model)
+    {
+        string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + item.ImageSource;
+        string[] descriptionListItems = item.Description.Split(';').ToArray();
+        double price = item.Price;
+        <div class="floated_img">
+            <img style="-webkit-user-select: none" src=@imgSrc>
+            <p>@Html.ActionLink(@item.ProductName, "Details", "Products", new {id = item.ProductID}, null)</p>
+            <p>@price $</p>
+        </div>
+    }
+</div>
+
+<script>
+    var filters = @Html.Raw(Json.Encode(@ViewBag.filters));
+    var category= '@(ViewBag.category)';
+    var searchTerms= '@(ViewBag.searchTerms)';
+
+
+
+    $(window).load(drawFilters());
+
+    function drawFilters() {
+        console.log('drawing filters');
+        $('#min-price-selector').empty();
+        let minPriceSelector = $('<input>',
+        {
+            type: 'range',
+            id: 'min-price-slider',
+            min: '@(ViewBag.minPrice)',
+            max: '@(ViewBag.maxPrice)',
+            value:'@(ViewBag.minPrice)',
+        });
+
+        $('#max-price-selector').empty();
+        let maxPriceSelector = $('<input>',
+        {
+            type: 'range',
+            id: 'max-price-slider',
+            max: '@(ViewBag.maxPrice)',
+            min: '@(ViewBag.minPrice)',
+            value:'@(ViewBag.maxPrice)'
+        });
+
+        $('#min-price-selector').append(minPriceSelector);
+        $('#max-price-selector').append(maxPriceSelector);
+
+
+        if($('#filters').is(':empty')){
+            for (filter of filters) {
+                let filterCheckbox = $('<input>',
+                {
+                    type: 'checkbox',
+                    class: 'filterCheckbox',
+                    value: filter
+                });
+                let filterName = $('<span>',
+                {
+                    class: 'filterName',
+                    text: filter
+                })
+                $('#filters').append(filterCheckbox);
+                $('#filters').append(filterName);
+                $('#filters').append('<br>');
+            };
+        }
+    }
+
+    $('#max-price-slider').change(changePriceRange);
+    $('#min-price-slider').change(changePriceRange);
+
+    function changePriceRange() {
+        console.log('changeing price range');
+        $('#minPrice').text($('#min-price-slider').val());
+        $('#maxPrice').text($('#max-price-slider').val());
+        $('#min-price-slider').prop('max', $('#max-price-slider').val());
+        $('#max-price-slider').prop('min', $('#min-price-slider').val());
+    }
+
+
+    function filterProducts() {
+        var checkedFilters = [];
+        $("input:checkbox[class=filterCheckbox]:checked")
+            .each(function() {
+                console.log($(this).val());
+                checkedFilters.push($(this).val());
+            });
+
+
+        console.log($('#min-price-slider').val());
+        console.log($('#max-price-slider').val());
+
+
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "../Products/FilterProducts",
+            data: {
+                category: category,
+                checkedFilters: checkedFilters,
+                searchTerms: searchTerms,
+                minPriceInput: $('#min-price-slider').val(),
+                maxPriceInput: $('#max-price-slider').val()
+            },
+            success: function(response) {
+                let returnedProducts = $(response).find('#products-panel').html();
+                $("#products-panel").html(returnedProducts);
+            }
+        });
+    }
+
+
+</script>
