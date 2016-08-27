@@ -1,0 +1,83 @@
+﻿@using System.Web.UI.WebControls
+@using OnlineStore.Controllers
+@using Microsoft.AspNet.Identity
+@using OnlineStore.Models;
+@model IEnumerable<OnlineStore.Models.Product>
+
+@{
+    ViewBag.Title = "MySales";
+    var aspUserName = User.Identity.GetUserName();
+    var count = 0;
+}
+
+<h2>MySales</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Product Number
+        </th>
+        <th>
+            Seller
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.ProductType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageSource)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    count++;
+    <tr>
+        <td>
+            @count
+        </td>       
+        <td>
+            @aspUserName
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageSource)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.MemberID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.MemberID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.MemberID })
+        </td>
+    </tr>
+    }
+
+</table>
+
+<h2>Total count : @count</h2>

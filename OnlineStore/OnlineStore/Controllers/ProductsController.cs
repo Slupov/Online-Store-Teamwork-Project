@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OnlineStore.Models;
+using Microsoft.AspNet.Identity;
 
 namespace OnlineStore.Controllers
 {
@@ -163,6 +164,15 @@ namespace OnlineStore.Controllers
 
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
+
+            return View(products);
+        }
+
+        public ActionResult MySales()
+        {
+            var aspUserName = User.Identity.GetUserName();
+            var dbUser = db.Members.Where(m => m.Username == aspUserName).First();
+            var products = db.Products.Where(p => p.MemberID == dbUser.MemberID);
 
             return View(products);
         }

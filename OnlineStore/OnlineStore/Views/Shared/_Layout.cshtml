@@ -29,9 +29,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <!--<li>//Html.ActionLink("About", "About", "Home")</li>-->
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Shop", "Index", "Products")</li> 
-                    <li>@Html.ActionLink("Users", "Index", "Members")</li>
+                    <li>@Html.ActionLink("My Sales", "MySales", "Products")</li>
+                    <!--<li>//Html.ActionLink("Users", "Index", "Members")</li>-->
                     <li>@Html.ActionLink("Categories", "ShopByCategories", "Home")</li>
                     <li id="searchBox">
                         @using (Html.BeginForm("FilterProducts", "Products"))
