@@ -1,29 +1,59 @@
-﻿@{
+﻿@using OnlineStore.Models;
+@{
     ViewBag.Title = "Home Page";
+    OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
+    var saleProducts = db.Products.OrderByDescending(p => p.Price).Take(3).ToList();
+    var tablets = db.Products.Where(p => p.ProductType == "Tablets - Apple").ToList();
+    var tvs = db.Products.Where(p => p.ProductType == "TV").ToList();
+    var lenses = db.Products.Where(p => p.ProductType == "Camera Lenses - Canon").ToList();
+    Random rnd = new Random();
+    var randomTablet = tablets[rnd.Next(1, tablets.Count)];
+    var randomTV = tvs[rnd.Next(1, tvs.Count)];
+    var randomLens = lenses[rnd.Next(1, lenses.Count)];
 }
 
 <div class="jumbotron">
-    <h1>Welcome to our shitty online store</h1>
-    <p class="lead">PSGM's online store is your place to order shitty things (if it starts working like pich).It's our teamwork project for the Tech Module in the Software University</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <h1>TOP 3 MOST EXPENSIVE ITEMS</h1>
+    <p class="lead">
+        @foreach (var item in saleProducts)
+        {
+            string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + item.ImageSource;
+            <div class="floated_img" style="margin-left:100px;">
+                <img style="-webkit-user-select: none" src=@imgSrc>
+        <p>@Html.ActionLink(@item.ProductName, "Details", "Products", new { id = item.ProductID }, null)</p>
+        <p>@item.Price $</p>
+    </div>
+        }</p>
+        </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/01eZnfFmEizk5ZP71Nnhw.jpg">
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Random tablet</h2>
+                <div class="floated_img">
+                    <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomTablet.ImageSource">
+                    <p>@Html.ActionLink(@randomTablet.ProductName, "Details", "Products", new { id = randomTablet.ProductID }, null)</p>
+                    <p>@randomTablet.Price $</p>
+                    @Html.ActionLink("Shop apple tablets", "FilterProducts", "Products", new { category = "Tablets - Apple" }, null)
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h2>Random camera lens</h2>
+                <div class="floated_img">
+                    <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomLens.ImageSource">
+                    <p>@Html.ActionLink(@randomLens.ProductName, "Details", "Products", new { id = randomLens.ProductID }, null)</p>
+                    <p>@randomLens.Price $</p>
+                    @Html.ActionLink("Shop camera lenses", "FilterProducts", "Products", new { category = "Camera Lenses - Canon" }, null)
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h2>Random TV</h2>
+                <div class="floated_img">
+                    <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomTV.ImageSource">
+                    <p>@Html.ActionLink(@randomTV.ProductName, "Details", "Products", new { id = randomTV.ProductID }, null)</p>
+                    <p>@randomTV.Price $</p>
+                    @Html.ActionLink("Shop TVs", "FilterProducts", "Products", new { category = "TV" }, null)
+                </div>
+            </div>
+        </div>
