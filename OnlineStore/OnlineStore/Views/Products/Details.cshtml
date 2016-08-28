@@ -17,7 +17,7 @@
 
 <script>
     $("#myLink").click(function(e){
-
+        
         e.preventDefault();
 
         $.ajax({
@@ -102,8 +102,12 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }) |
+    @if (User.Identity.GetUserName() == Model.Member.Username)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }); @Html.Raw(" | ")
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }); @Html.Raw(" |")
+    }
+   
     @Html.ActionLink("Back to " + @Model.ProductType, "FilterProducts", "Products", new { category = @Model.ProductType }, null) |
     @Html.ActionLink("ADD TO CART", "AddToCart", null, new { id = "myLink" })
 </p>

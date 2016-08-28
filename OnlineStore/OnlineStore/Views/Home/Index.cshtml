@@ -3,9 +3,9 @@
     ViewBag.Title = "Home Page";
     OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
     var saleProducts = db.Products.OrderByDescending(p => p.Price).Take(3).ToList();
-    var tablets = db.Products.Where(p => p.ProductType == "Tablets").ToList();
+    var tablets = db.Products.Where(p => p.ProductType == "Tablets - Apple").ToList();
     var tvs = db.Products.Where(p => p.ProductType == "TV").ToList();
-    var lenses = db.Products.Where(p => p.ProductType == "Camera Lenses").ToList();
+    var lenses = db.Products.Where(p => p.ProductType == "Camera Lenses - Canon").ToList();
     Random rnd = new Random();
     var randomTablet = tablets[rnd.Next(1, tablets.Count)];
     var randomTV = tvs[rnd.Next(1, tvs.Count)];
