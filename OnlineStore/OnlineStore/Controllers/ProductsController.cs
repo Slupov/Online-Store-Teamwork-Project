@@ -160,7 +160,7 @@ namespace OnlineStore.Controllers
 
 
 
-        public ActionResult BrowseProducts(string category = "",
+        public ActionResult BrowseProducts(string category = "All categories",
                                             string[] filters = null,
                                             string[] checkedFilters = null,
                                             string minPriceInput = "",

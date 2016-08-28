@@ -68,3 +68,10 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+        let category = '@(ViewBag.category)';
+        $('.searchSelect').val(category);
+    })
+</script>

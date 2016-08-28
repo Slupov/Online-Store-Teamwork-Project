@@ -13,6 +13,7 @@ namespace OnlineStore.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.category = "All categories";
             return View();
         }
 
@@ -33,6 +34,7 @@ namespace OnlineStore.Controllers
         public ActionResult ShopByCategories()
         {
             ViewBag.Message = "Your categories.";
+            ViewBag.category = "All categories";
             var categories = db.Products.Select(p => p.ProductType).Distinct();
             return View(categories);
         }
