@@ -177,10 +177,7 @@ namespace OnlineStore.Controllers
 
             if (checkedFilters != null)
             {
-                foreach (string filter in checkedFilters)
-                {
-                    products = products.Where(p => p.ProductName.ToLower().Contains(filter.ToLower())).ToList();
-                }
+                products = products.Where(p => ArraysHaveCommonWords(checkedFilters,p.ProductName.Split(' '))).ToList();
             }
             if (category != "" && category != "All categories")
             {
@@ -233,6 +230,18 @@ namespace OnlineStore.Controllers
             var products = db.Products.Where(p => p.MemberID == dbUser.MemberID);
 
             return View(products);
+        }
+
+        private bool ArraysHaveCommonWords(string[] a, string[] b)
+        {
+            foreach (string word in a)
+            {
+                if (b.Contains(word))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
