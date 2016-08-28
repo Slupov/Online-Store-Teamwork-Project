@@ -10,6 +10,7 @@
     ViewBag.Title = "MyCart";
     var aspUserName = User.Identity.GetUserName();
     var count = 0;
+    var totalPrice = Model.Select(c => c.Product.Price).Sum();
 }
 
 <h2>@aspUserName 's Cart</h2>
@@ -89,3 +90,6 @@
 </table>
 
 <h2>Total count : @count</h2>
+<h2>Total price : @totalPrice</h2>
+
+@Html.ActionLink("Buy all","BuyCart","Carts",new {memberID=Model.Select(c=>c.MemberID).FirstOrDefault()},null)

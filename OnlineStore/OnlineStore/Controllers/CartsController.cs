@@ -161,5 +161,21 @@ namespace OnlineStore.Controllers
 
             ViewBag.MemberID = new SelectList(db.Members, "MemberID", "Username", cart.MemberID);
         }
+
+        public ActionResult BuyCart(int memberID)
+        {
+            ViewBag.Message = "Thank you for your purchase!";
+
+            foreach (Product product in db.Carts.Where(c=>c.MemberID==memberID).Select(c=>c.Product).ToList())
+            {
+                product.Stock = product.Stock - 1;
+                db.SaveChanges();
+            }
+
+            db.Carts.RemoveRange(db.Carts.Where(c => c.MemberID == memberID));
+            db.SaveChanges();
+
+            return View();
+        }
     }
 }
