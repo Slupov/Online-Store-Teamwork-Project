@@ -37,7 +37,7 @@ namespace OnlineStore.Controllers
             {"Laptops",new string[] {"Apple","Acer","Asus","HP"} },
             {"Mice",new string[] {"Logitech","Microsoft","HP"} },
             {"Keyboards",new string[] {"Microsoft","Apple","Logitech","Razer"} },
-            {"Drives & Storage",new string[] {"Samsung","Seagate","WD","SanDisk"} },
+            {"Drives and Storage",new string[] {"Samsung","Seagate","WD","SanDisk"} },
             {"",new string[] {} },
                         {"All categories",new string[] {} }
 
