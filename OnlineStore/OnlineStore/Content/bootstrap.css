@@ -4502,15 +4502,22 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: hotpink;
+  background-image:url(../images/purple.png);
   border-color: #080808;
 }
 
 .navbar-inverse .navbar-brand {
   color: white;
-  
+  font-family:Bodoni MT Black;
+  font:bold;
+  font-size:40px;
 }
- 
+ .navbar-inverse .navbar-brand-store {
+  color: white;
+  font-family:Bodoni MT Black;
+  font:bold;
+  font-size:20px;
+}
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
   color: #ffffff;
