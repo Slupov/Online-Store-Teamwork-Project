@@ -6,7 +6,7 @@
     
     @foreach (string category in Model)
     {
-        @Html.ActionLink(category, "FilterProducts", "Products", new {category = category}, null)
+        @Html.ActionLink(category, "BrowseProducts", "Products", new {category = category}, null)
         <br/>
     }
 

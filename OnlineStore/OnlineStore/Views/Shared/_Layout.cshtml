@@ -33,7 +33,7 @@
                     <!--<li>//Html.ActionLink("Users", "Index", "Members")</li>-->
                     <li>@Html.ActionLink("Categories", "ShopByCategories", "Home")</li>
                     <li id="searchBox">
-                        @using (Html.BeginForm("FilterProducts", "Products"))
+                        @using (Html.BeginForm("BrowseProducts", "Products"))
                         {
                         <input type="text" id="search_Text" name="searchTerms" placeholder="Search..."/>
                         <input type="submit" name="search_button" id="search_button" />

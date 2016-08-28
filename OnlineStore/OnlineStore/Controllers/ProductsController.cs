@@ -165,7 +165,8 @@ namespace OnlineStore.Controllers
                                             string[] checkedFilters = null,
                                             string minPriceInput = "",
                                             string maxPriceInput = "",
-                                            string searchTerms = null)
+                                            string searchTerms = null,
+                                            string orderBy="name,asc")
         {
 
             ViewBag.Messege = "Listing " + category;
@@ -192,6 +193,22 @@ namespace OnlineStore.Controllers
                 {
                     products = products.Where(p => p.ProductName.ToLower().Contains(term.ToLower())).ToList();
                 }
+            }
+
+            switch (orderBy)
+            {
+                case "name,asc":
+                    products = products.OrderBy(p => p.ProductName).ToList();
+                    break;
+                case "name,desc":
+                    products = products.OrderByDescending(p => p.ProductName).ToList();
+                    break;
+                case "price,asc":
+                    products = products.OrderBy(p => p.Price).ToList();
+                    break;
+                case "price,desc":
+                    products = products.OrderByDescending(p => p.Price).ToList();
+                    break;
             }
 
             double minPrice = minPriceInput == "" ? products.Select(p => p.Price).Min() : double.Parse(minPriceInput) -1;
