@@ -9,26 +9,25 @@
 }
 
 <h2>Index</h2>
-<aside id="sidebar">
-    <div id="filterPanel">
-        @Html.ActionLink("All Categories", "BrowseProducts", "Products")<br />
-        <span>minPrice</span>
-        <div id="min-price-selector"></div>
-        <div id="minPrice">@ViewBag.minPrice</div>
-        <br />
-        <span>maxPrice</span>
-        <div id="max-price-selector"></div>
-        <div id="maxPrice">@ViewBag.maxPrice</div>
-        <div id="filters"></div><br />
-        <select id="order-by">
-            <option value="name,asc">Name, Ascending</option>
-            <option value="name,desc">Name, Descending</option>
-            <option value="price,asc">Price, Ascending</option>
-            <option value="price,desc">Price, Descending</option>
-        </select><br />
-    </div>
-    <input type="button" value="Filter" onclick="filterProducts()" />
-</aside>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+
+<div id="filterPanel">
+    <span>minPrice</span>
+    <div id="min-price-selector"></div>
+    <div id="minPrice">@ViewBag.minPrice</div>
+    <br />
+    <span>maxPrice</span>
+    <div id="max-price-selector"></div>
+    <div id="maxPrice">@ViewBag.maxPrice</div>
+    <div id="filters"></div>
+</div>
+<input type="button" value="Filter" onclick="filterProducts()" />
+
 
 <div id="products-panel">
     @foreach (var item in Model)
@@ -127,14 +126,13 @@
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "../Products/BrowseProducts",
+            url: "../Products/FilterProducts",
             data: {
                 category: category,
                 checkedFilters: checkedFilters,
                 searchTerms: searchTerms,
                 minPriceInput: $('#min-price-slider').val(),
-                maxPriceInput: $('#max-price-slider').val(),
-                orderBy:$('#order-by').val()
+                maxPriceInput: $('#max-price-slider').val()
             },
             success: function(response) {
                 let returnedProducts = $(response).find('#products-panel').html();

@@ -160,13 +160,13 @@ namespace OnlineStore.Controllers
 
 
 
-        public ActionResult FilterProducts(string category = "",
+        public ActionResult BrowseProducts(string category = "",
                                             string[] filters = null,
                                             string[] checkedFilters = null,
                                             string minPriceInput = "",
                                             string maxPriceInput = "",
                                             string searchTerms = null,
-                                            string orderBy="name,asc")
+                                            string orderBy = "name,asc")
         {
 
             ViewBag.Messege = "Listing " + category;
@@ -211,8 +211,8 @@ namespace OnlineStore.Controllers
                     break;
             }
 
-            double minPrice = minPriceInput == "" ? products.Select(p => p.Price).Min() : double.Parse(minPriceInput) -1;
-            double maxPrice = maxPriceInput == "" ? products.Select(p => p.Price).Max() : double.Parse(maxPriceInput) +1;
+            double minPrice = minPriceInput == "" ? products.Select(p => p.Price).Min() : double.Parse(minPriceInput) - 1;
+            double maxPrice = maxPriceInput == "" ? products.Select(p => p.Price).Max() : double.Parse(maxPriceInput) + 1;
 
             products = products.Where(p => p.Price > minPrice).ToList();
             products = products.Where(p => p.Price < maxPrice).ToList();

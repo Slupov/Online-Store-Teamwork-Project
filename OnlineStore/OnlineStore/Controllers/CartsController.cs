@@ -143,11 +143,16 @@ namespace OnlineStore.Controllers
             return View(myCartItems);
         }
 
-        //POST add cartItem in database
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public void AddToCart([Bind(Include = "CartID,MemberID,ProductID")] Cart cart)
+
+        public void AddToCart(int id)
         {
+            Cart cart = new Cart();
+
+            var aspUserName = User.Identity.GetUserName();
+            var dbUser = db.Members.Where(m => m.Username == aspUserName).First();
+            cart.MemberID = dbUser.MemberID;
+            cart.ProductID = id;
+
             if (ModelState.IsValid)
             {
                 db.Carts.Add(cart);

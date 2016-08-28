@@ -4,6 +4,8 @@
 @{
     OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
 }
+<script type="text/javascript" src="/scripts/jquery-1.10.2.min.js"></script>
+
 
 @{
     ViewBag.Title = "Details";
@@ -19,21 +21,7 @@
 
 }
 
-<script>
-    $("#myLink").click(function(e){
-        
-        e.preventDefault();
 
-        $.ajax({
-
-        success: function(){
-            alert("Value Added");  // or any other indication if you want to show
-        }
-
-    });
-
-    });
-</script>
 <h2>Details</h2>
 
 <div>
@@ -111,11 +99,33 @@
         if (User.Identity.GetUserName() == Model.Member.Username)
         {
         @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }); @Html.Raw(" | ")
-          @Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }); @Html.Raw(" |")
+            @Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }); @Html.Raw(" |")
         }
-        }
-  
-   
+    }
+
+
     @Html.ActionLink("Back to " + @Model.ProductType, "FilterProducts", "Products", new { category = @Model.ProductType }, null) |
-    @Html.ActionLink("ADD TO CART", "AddToCart", null, new { id = "myLink" })
+    <input type="submit" id="myLink" value="Add to cart" onclick="addToCart()" />
 </p>
+
+<script>
+
+    function addToCart() {
+
+        let productID = '@(Model.ProductID)'
+        console.log("srah tuk")
+        $.ajax({
+            type: "GET",
+            traditional: true,
+            url: "/Carts/AddToCart",
+            data: {id:productID},
+            success: function () {
+                alert("Value Added");
+            }// or any other indication if you want to show
+
+        });
+
+
+
+    }
+</script>
