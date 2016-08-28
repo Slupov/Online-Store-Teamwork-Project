@@ -39,6 +39,7 @@ namespace OnlineStore.Controllers
             {"Keyboards",new string[] {"Microsoft","Apple","Logitech","Razer"} },
             {"Drives & Storage",new string[] {"Samsung","Seagate","WD","SanDisk"} },
             {"",new string[] {} },
+                        {"All categories",new string[] {} }
 
         };
 
