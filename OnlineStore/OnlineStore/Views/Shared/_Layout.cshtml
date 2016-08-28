@@ -39,9 +39,9 @@
                     <li id="searchBox">
                         @using (Html.BeginForm("BrowseProducts", "Products"))
                         {
-                        <input type="text" id="search_Text" name="searchTerms" placeholder="Search..."/>
+                       
                         <input type="submit" name="search_button" id="search_button" />
-
+                        <input type="text" id="search_Text" name="searchTerms" placeholder="Search..." />
                         <select name="category" class="searchSelect">
                             <option name="All categories" class="searchSelectOption">All categories</option>
                             @foreach (var category in ViewBag.Categories)
