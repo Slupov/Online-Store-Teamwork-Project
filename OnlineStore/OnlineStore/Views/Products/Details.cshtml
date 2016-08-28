@@ -91,6 +91,29 @@
             @Html.DisplayFor(model => model.Member.Username)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Ratings)
+        </dt>
+
+        <dd>
+            <div id="rating-average">
+                @{ double avrgRating = Math.Round(Model.Ratings.Select(r => r.Value*r.Amount).Sum()/(double)Model.Ratings.Select(r => r.Amount).Sum(),1); }
+                <span>@avrgRating</span>
+            </div>
+            
+            <div id="rating-distribution">
+                @foreach (Rating rating in Model.Ratings.OrderByDescending(r => r.Value))
+                {
+                    for (int i = 0; i < rating.Value; i++)
+                    {
+                        <img src="../../Content/3d-yellow-star.png" height="20"/>
+                    }
+                    <span>@rating.Amount</span>
+                    <br/>
+                }
+            </div>
+        </dd>
+
     </dl>
 </div>
 <p>

@@ -17,17 +17,23 @@
 
 
 <div id="filterPanel">
+    @Html.ActionLink("Back to cateogries", "ShopByCategories","Home")
+    <br/>
+    <select id="order-by" onchange="filterProducts()">
+        <option value="name,asc">Name, Ascending</option>
+        <option value="name,desc">Name, Descending</option>
+        <option value="price,asc">Price, Ascending</option>
+        <option value="price,desc">Price, Descending</option>
+    </select><br/>
     <span>minPrice</span>
     <div id="min-price-selector"></div>
     <div id="minPrice">@ViewBag.minPrice</div>
-    <br />
+    <br/>
     <span>maxPrice</span>
     <div id="max-price-selector"></div>
     <div id="maxPrice">@ViewBag.maxPrice</div>
     <div id="filters"></div>
 </div>
-<input type="button" value="Filter" onclick="filterProducts()" />
-
 
 <div id="products-panel">
     @foreach (var item in Model)
@@ -71,7 +77,7 @@
             id: 'max-price-slider',
             max: '@(ViewBag.maxPrice)',
             min: '@(ViewBag.minPrice)',
-            value:'@(ViewBag.maxPrice)'
+            value:'@(ViewBag.maxPrice)',
         });
 
         $('#min-price-selector').append(minPriceSelector);
@@ -84,7 +90,8 @@
                 {
                     type: 'checkbox',
                     class: 'filterCheckbox',
-                    value: filter
+                    value: filter,
+                    onchange: filterProducts()
                 });
                 let filterName = $('<span>',
                 {
@@ -99,7 +106,10 @@
     }
 
     $('#max-price-slider').change(changePriceRange);
+    $('#max-price-slider').change(filterProducts);
     $('#min-price-slider').change(changePriceRange);
+    $('#min-price-slider').change(filterProducts);
+    $('.filterCheckbox').change(filterProducts);
 
     function changePriceRange() {
         console.log('changeing price range');
@@ -132,7 +142,8 @@
                 checkedFilters: checkedFilters,
                 searchTerms: searchTerms,
                 minPriceInput: $('#min-price-slider').val(),
-                maxPriceInput: $('#max-price-slider').val()
+                maxPriceInput: $('#max-price-slider').val(),
+                orderBy:$("#order-by").val()
             },
             success: function(response) {
                 let returnedProducts = $(response).find('#products-panel').html();
