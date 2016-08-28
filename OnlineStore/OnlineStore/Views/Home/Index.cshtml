@@ -33,7 +33,7 @@
                     <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomTablet.ImageSource">
                     <p>@Html.ActionLink(@randomTablet.ProductName, "Details", "Products", new { id = randomTablet.ProductID }, null)</p>
                     <p>@randomTablet.Price $</p>
-                    @Html.ActionLink("Shop apple tablets", "FilterProducts", "Products", new { category = "Tablets - Apple" }, null)
+                    @Html.ActionLink("Shop apple tablets", "BrowseProducts", "Products", new { category = "Tablets - Apple" }, null)
                 </div>
             </div>
 
@@ -43,7 +43,7 @@
                     <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomLens.ImageSource">
                     <p>@Html.ActionLink(@randomLens.ProductName, "Details", "Products", new { id = randomLens.ProductID }, null)</p>
                     <p>@randomLens.Price $</p>
-                    @Html.ActionLink("Shop camera lenses", "FilterProducts", "Products", new { category = "Camera Lenses - Canon" }, null)
+                    @Html.ActionLink("Shop camera lenses", "BrowseProducts", "Products", new { category = "Camera Lenses - Canon" }, null)
                 </div>
             </div>
 
@@ -53,7 +53,7 @@
                     <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomTV.ImageSource">
                     <p>@Html.ActionLink(@randomTV.ProductName, "Details", "Products", new { id = randomTV.ProductID }, null)</p>
                     <p>@randomTV.Price $</p>
-                    @Html.ActionLink("Shop TVs", "FilterProducts", "Products", new { category = "TV" }, null)
+                    @Html.ActionLink("Shop TVs", "BrowseProducts", "Products", new { category = "TV" }, null)
                 </div>
             </div>
         </div>

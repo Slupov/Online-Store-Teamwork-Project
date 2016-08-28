@@ -104,7 +104,7 @@
     }
 
 
-    @Html.ActionLink("Back to " + @Model.ProductType, "FilterProducts", "Products", new { category = @Model.ProductType }, null) |
+    @Html.ActionLink("Back to " + @Model.ProductType, "BrowseProducts", "Products", new { category = @Model.ProductType }, null) |
     <input type="submit" id="myLink" value="Add to cart" onclick="addToCart()" />
 </p>
 
