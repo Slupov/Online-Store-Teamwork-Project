@@ -160,6 +160,7 @@ namespace OnlineStore.Controllers
 
                 db.Members.Add(dbUser);
                 db.SaveChanges();
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

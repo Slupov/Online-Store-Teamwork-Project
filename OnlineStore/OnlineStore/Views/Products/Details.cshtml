@@ -11,8 +11,12 @@
     string[] descriptionListItems = Model.Description.Split(';').ToArray();
     ViewBag.ProductName = Model.ProductName;
 
-    var aspUserName = User.Identity.GetUserName();
-    var dbUser = db.Members.Where(m => m.Username == aspUserName).First();
+    if (User.Identity.IsAuthenticated)
+    {
+        var aspUserName = User.Identity.GetUserName();
+        var dbUser = db.Members.Where(m => m.Username == aspUserName).First();
+    }
+
 }
 
 <script>
@@ -102,11 +106,15 @@
     </dl>
 </div>
 <p>
-    @if (User.Identity.GetUserName() == Model.Member.Username)
+    @if (User.Identity.IsAuthenticated)
     {
+        if (User.Identity.GetUserName() == Model.Member.Username)
+        {
         @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }); @Html.Raw(" | ")
-        @Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }); @Html.Raw(" |")
-    }
+          @Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }); @Html.Raw(" |")
+        }
+        }
+  
    
     @Html.ActionLink("Back to " + @Model.ProductType, "FilterProducts", "Products", new { category = @Model.ProductType }, null) |
     @Html.ActionLink("ADD TO CART", "AddToCart", null, new { id = "myLink" })
