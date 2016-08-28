@@ -28,7 +28,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
                     <li>@Html.ActionLink("My Sales", "MySales", "Products")</li>
+                    }
                     <li>@Html.ActionLink("Categories", "ShopByCategories", "Home")</li>
                     <li id="searchBox">
                         @using (Html.BeginForm("BrowseProducts", "Products"))
