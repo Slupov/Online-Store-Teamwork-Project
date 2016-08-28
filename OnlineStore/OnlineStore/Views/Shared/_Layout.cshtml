@@ -70,8 +70,14 @@
 </html>
 
 <script>
-    $(document).ready(function () {
-        let category = '@(ViewBag.category)';
-        $('.searchSelect').val(category);
+    $(document)
+        .ready(function() {
+            let category = '@(ViewBag.category)';
+        if (category != "") {
+            $('.searchSelect').val(category);
+        } else {
+            $('.searchSelect').val("All categories");
+
+        }
     })
 </script>
