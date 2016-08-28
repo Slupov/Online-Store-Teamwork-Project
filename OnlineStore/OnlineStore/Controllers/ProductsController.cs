@@ -62,6 +62,7 @@ namespace OnlineStore.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.category = db.Products.Single(p => p.ProductID == id).ProductType;
             return View(product);
         }
 
