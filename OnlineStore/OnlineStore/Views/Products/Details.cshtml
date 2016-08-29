@@ -21,101 +21,51 @@
 
 }
 
+<div id="product-container">
 
-<h2>Details</h2>
+    <div id="image-container">
+        <img style="-webkit-user-select: none" src=@imgSrc>
+    </div>
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            <ul>
+    <div id="product-info">
+        <div id="product-name">@Html.DisplayFor(model => model.ProductName)</div>
+        <div id="product-description"><ul>
                 @foreach (var li in descriptionListItems)
                 {
                     string actualLi = li.Substring(4, li.Length - 9);
                     <li>@actualLi</li>
                 }
             </ul>
+        </div>
+        <div id="rating-average">
+            @{ double avrgRating = Math.Round(Model.Ratings.Select(r => r.Value*r.Amount).Sum()/(double) Model.Ratings.Select(r => r.Amount).Sum(), 1); }
+            <span>Rating:  @avrgRating</span>
+        </div>
 
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageSource)
-        </dt>
-
-        <dd>
-            <img style="-webkit-user-select: none" src=@imgSrc>
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Member.Username)
-        </dt>
-
-        <dd>
-            @Html.ActionLink(Model.Member.Username,"Details","Members",new {id=Model.MemberID},null)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Ratings)
-        </dt>
-
-        <dd>
-            <div id="rating-average">
-                @{ double avrgRating = Math.Round(Model.Ratings.Select(r => r.Value*r.Amount).Sum()/(double)Model.Ratings.Select(r => r.Amount).Sum(),1); }
-                <span>@avrgRating</span>
-            </div>
-            
-            <div id="rating-distribution">
-                @foreach (Rating rating in Model.Ratings.OrderByDescending(r => r.Value))
+        <div id="rating-distribution">
+            @foreach (Rating rating in Model.Ratings.OrderByDescending(r => r.Value))
+            {
+                for (int i = 0; i < rating.Value; i++)
                 {
-                    for (int i = 0; i < rating.Value; i++)
-                    {
-                        <img src="../../Content/3d-yellow-star.png" height="20"/>
-                    }
-                    <span>@rating.Amount</span>
-                    <br/>
+                    <img src="../../Content/3d-yellow-star.png" height="20"/>
                 }
-            </div>
-        </dd>
+                <span>@rating.Amount</span>
+                <br/>
+            }
+        </div>
+        <div id="seller">Seller: @Html.ActionLink(Model.Member.Username, "Details", "Members", new {id = Model.MemberID}, null)</div>
+    </div>
 
-    </dl>
+    <div id="purchase-panel">
+        <input type="text" id="purchase-amount" value="1"/>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <input type="submit" id="myLink" value="Add to cart" onclick="addToCart()"/>
+        }
+    </div>
 </div>
+
 <p>
     @if (User.Identity.IsAuthenticated)
     {
@@ -128,30 +78,26 @@
 
 
     @Html.ActionLink("Back to " + @Model.ProductType, "BrowseProducts", "Products", new { category = @Model.ProductType }, null) |
-@if (User.Identity.IsAuthenticated)
-{
-    <input type="submit" id="myLink" value="Add to cart" onclick="addToCart()" />
-}
 </p>
 
 <script>
 
     function addToCart() {
 
-        let productID = '@(Model.ProductID)'
+        let productID = '@(Model.ProductID)';
         console.log("srah tuk")
         $.ajax({
             type: "GET",
             traditional: true,
             url: "/Carts/AddToCart",
-            data: {id:productID},
+            data: {
+                id: productID,
+                amount:$('#purchase-amount').val()
+            },
             success: function () {
                 alert("Value Added");
             }// or any other indication if you want to show
 
         });
-
-
-
     }
 </script>

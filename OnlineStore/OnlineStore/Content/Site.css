@@ -121,3 +121,40 @@ select {
     float: right;
     width: 80%;
 }
+
+#product-container {
+    margin: 30px;
+}
+#product-container > * {
+    display: inline-block;
+}
+
+#image-container {
+    float: left;
+    width: 30%;
+}
+
+#product-name {
+    font-size: 16pt;
+}
+
+#product-info {
+    width: 50%;
+    display: inline-block;
+}
+
+#product-info > * {
+    margin: 15px;
+}
+
+#rating-average > span {
+    font-size: 12pt;
+}
+
+#purchase-panel {
+    float: right;
+}
+
+#purchase-amount {
+    width: 40px;
+}

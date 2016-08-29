@@ -144,7 +144,7 @@ namespace OnlineStore.Controllers
         }
 
 
-        public void AddToCart(int id)
+        public void AddToCart(int id, int amount)
         {
             Cart cart = new Cart();
 
@@ -152,6 +152,7 @@ namespace OnlineStore.Controllers
             var dbUser = db.Members.Where(m => m.Username == aspUserName).First();
             cart.MemberID = dbUser.MemberID;
             cart.ProductID = id;
+            cart.Quantity = amount;
 
             if (ModelState.IsValid)
             {
@@ -168,7 +169,7 @@ namespace OnlineStore.Controllers
 
             foreach (Product product in db.Carts.Where(c=>c.MemberID==memberID).Select(c=>c.Product).ToList())
             {
-                product.Stock = product.Stock - 1;
+                product.Stock = product.Stock - db.Carts.Single(c=>c.ProductID==product.ProductID&&c.MemberID==memberID).Quantity;
                 db.SaveChanges();
             }
 
