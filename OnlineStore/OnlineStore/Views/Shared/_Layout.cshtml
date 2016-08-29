@@ -11,7 +11,7 @@
         OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
         ViewBag.Categories = db.Products.Select(p => p.ProductType).Distinct().ToList();
     }
-
+    <script src="//cdn.ckeditor.com/4.5.10/full/ckeditor.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">

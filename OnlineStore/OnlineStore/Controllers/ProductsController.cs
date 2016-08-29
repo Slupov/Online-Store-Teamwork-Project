@@ -112,13 +112,14 @@ namespace OnlineStore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "ProductID,ProductName,ProductType,Description,Stock,Price,ImageSource,MemberID")] Product product)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect("../MySales");
             }
             ViewBag.MemberID = new SelectList(db.Members, "MemberID", "Username", product.MemberID);
             return View(product);
@@ -178,7 +179,7 @@ namespace OnlineStore.Controllers
 
             if (checkedFilters != null)
             {
-                products = products.Where(p => ArraysHaveCommonWords(checkedFilters,p.ProductName.Split(' '))).ToList();
+                products = products.Where(p => ArraysHaveCommonWords(checkedFilters, p.ProductName.Split(' '))).ToList();
             }
             if (category != "" && category != "All categories")
             {
