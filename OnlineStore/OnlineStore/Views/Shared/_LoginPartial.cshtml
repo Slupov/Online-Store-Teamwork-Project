@@ -1,4 +1,12 @@
 ﻿@using Microsoft.AspNet.Identity
+@using OnlineStore.Models;
+
+@{ 
+    OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
+    var aspUserName = User.Identity.GetUserName();
+    var dbUser = db.Members.First(m => m.Username == aspUserName);
+}
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -7,7 +15,10 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "Details", "Members", new { id = dbUser.MemberID }, null)
+            </li>
+            <li>
+                @Html.ActionLink("Settings", "Index", "Manage", routeValues: null, htmlAttributes: new { @class="settings-wheel" })
             </li>
             <li>@Html.ActionLink("Cart", "MyCart", "Carts")</li>
 

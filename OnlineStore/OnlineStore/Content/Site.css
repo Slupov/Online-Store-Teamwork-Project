@@ -193,3 +193,15 @@ margin: 0;
     transform: translate(-50%, -50%);
 color:white;
 }
+
+a.settings-wheel{
+background: url(../images/settings-wheel.png) no-repeat top;
+     display: inline;
+     text-indent: -9999px; /* hides the link text */
+     background-size: 20px 20px;
+     height: auto; 
+    width: auto; 
+    max-width: 30px; 
+    max-height: 22px;
+    margin-top:15px;
+}
