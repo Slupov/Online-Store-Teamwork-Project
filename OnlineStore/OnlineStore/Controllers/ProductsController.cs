@@ -146,6 +146,10 @@ namespace OnlineStore.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
+            db.Comments.RemoveRange(product.Comments);
+            db.Ratings.RemoveRange(product.Ratings);
+            db.Carts.RemoveRange(product.Carts);
+            db.Transactions.RemoveRange(product.Transactions);
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
