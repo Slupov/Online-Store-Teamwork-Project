@@ -30,11 +30,7 @@
     <div id="product-info">
         <div id="product-name">@Html.DisplayFor(model => model.ProductName)</div>
         <div id="product-description"><ul>
-                @foreach (var li in descriptionListItems)
-                {
-                    string actualLi = li.Substring(4, li.Length - 9);
-                    <li>@actualLi</li>
-                }
+                @Html.Raw(Model.Description)
             </ul>
         </div>
         <div id="rating-average">
