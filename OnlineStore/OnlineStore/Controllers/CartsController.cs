@@ -167,9 +167,9 @@ namespace OnlineStore.Controllers
         {
             ViewBag.Message = "Thank you for your purchase!";
 
-            foreach (Product product in db.Carts.Where(c=>c.MemberID==memberID).Select(c=>c.Product).ToList())
+            foreach (Product product in db.Carts.Where(c => c.MemberID == memberID).Select(c => c.Product).ToList())
             {
-                product.Stock = product.Stock - db.Carts.Single(c=>c.ProductID==product.ProductID&&c.MemberID==memberID).Quantity;
+                product.Stock = product.Stock - db.Carts.Single(c => c.ProductID == product.ProductID && c.MemberID == memberID).Quantity;
                 db.SaveChanges();
             }
 
