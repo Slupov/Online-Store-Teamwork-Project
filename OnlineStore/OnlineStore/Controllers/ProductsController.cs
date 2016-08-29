@@ -46,7 +46,9 @@ namespace OnlineStore.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Member);
+            var aspUserName = User.Identity.GetUserName();
+            var dbUsername = db.Members.First(m => m.Username == aspUserName).Username;
+            var products = db.Products.Where(p=>p.Member.Username==dbUsername);
             return View(products.ToList());
         }
 
