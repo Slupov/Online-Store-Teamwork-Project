@@ -1,15 +1,24 @@
 ﻿@model IEnumerable<string>
 <h2>Shop By Categories</h2>
 
-<div>
 
-    
-    @foreach (string category in Model)
+<div id="products-panel">
+    @foreach (var category in Model)
     {
-        @Html.ActionLink(category, "BrowseProducts", "Products", new {category = category}, null)
-        <br/>
-    }
 
+        var categoryUrlText = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/images/" + category + ".jpg";
+
+        if (categoryUrlText.Contains(" "))
+        {
+            categoryUrlText = categoryUrlText.Replace(" ", "%20");
+        }
+
+
+        <div class="floated_img">
+            <img style="-webkit-user-select: none" src=@categoryUrlText>
+            @Html.ActionLink(category, "BrowseProducts", "Products", new { category = category }, null)
+        </div>
+    }
 </div>
 
 
