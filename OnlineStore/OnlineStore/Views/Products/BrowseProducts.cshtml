@@ -29,12 +29,18 @@
 <div id="products-panel">
     @foreach (var item in Model)
     {
+        var shortProductName = item.ProductName;
+
+        if (item.ProductName.Length > 100)
+        {
+            shortProductName = item.ProductName.Substring(0, 100) + " (...)";
+        }
         string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + item.ImageSource;
         string[] descriptionListItems = item.Description.Split(';').ToArray();
         double price = item.Price;
         <div class="floated_img">
             <img style="-webkit-user-select: none" src=@imgSrc>
-            <p>@Html.ActionLink(@item.ProductName, "Details", "Products", new {id = item.ProductID}, null)</p>
+            <p>@Html.ActionLink(shortProductName, "Details", "Products", new {id = item.ProductID}, null)</p>
             <p>@price $</p>
         </div>
     }
