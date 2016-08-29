@@ -180,3 +180,16 @@ border-bottom:1px;
 .comment-section-row td{
 border-bottom:1pt solid black;
 }
+
+footer{
+height:30px;
+}
+footer p{
+margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+color:white;
+}
