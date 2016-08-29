@@ -52,9 +52,8 @@ actionLinkButton {
     padding: 15px 0 15px 20px;
     font-size: 16px;
     font-family: Montserrat, sans-serif;
- 
     height: 10px;
-    margin-left:0;
+    margin-left: 0;
     margin-right: 0;
     color: #a9a9a9;
     outline: none;
@@ -62,15 +61,14 @@ actionLinkButton {
     float: right;
     box-sizing: border-box;
     transition: all 0.15s;
-    border-top-width:0px;
+    border-top-width: 0px;
     border-right-width: 1px;
     border-left-width: 0px;
     border-bottom-width: 0px;
-  
 }
 
 #search_button {
-   border:none;
+    border: none;
     background: white;
     width: 60px;
     float: right;
@@ -78,15 +76,14 @@ actionLinkButton {
     text-align: center;
     height: 30px;
     cursor: pointer;
-    color : #a9a9a9;
+    color: #a9a9a9;
     border-radius: 0px 15px 15px 0px;
-    
 }
 
 select {
     -webkit-appearance: button;
     -moz-appearance: button;
-    -webkit-user-select: none; 
+    -webkit-user-select: none;
     -moz-user-select: none;
     -webkit-padding-end: 20px;
     -moz-padding-end: 20px;
@@ -95,8 +92,6 @@ select {
     background-color: white; /* fallback color if gradients are not supported */
     background-position: center right;
     background-repeat: no-repeat;
-    
-  
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
     color: #a9a9a9;
     font-size: inherit;
@@ -109,12 +104,20 @@ select {
     border-radius: 10px 0px 0px 10px;
     height: 30px;
     cursor: pointer;
-    outline:none;
-    
+    outline: none;
     border-top-width: 0px;
     border-bottom-width: 0px;
     border-left-width: 0px;
     border-right-width: 0px;
-
 }
 
+#filterPanel {
+    float: left;
+    width: 20%;
+    height: 100%;
+}
+
+#products-panel {
+    float: right;
+    width: 80%;
+}
