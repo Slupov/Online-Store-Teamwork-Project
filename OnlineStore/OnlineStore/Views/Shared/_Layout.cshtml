@@ -24,6 +24,7 @@
                 </button>
                 @Html.ActionLink("PSGM", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (User.Identity.IsAuthenticated && User.Identity.AuthenticationType == "admin")
@@ -55,7 +56,22 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+  
+        <aside id="myAside">
+          <nav class="nav-categories">
+                @foreach (var cat in db.Products.Select(p => p.ProductType).Distinct())
+            {
+                
+                    <button>@Html.ActionLink(cat, "BrowseProducts", "Products", new { category = cat }, null)</button>
+                
+                }
+           </nav>
+           
+</aside>
+
+        <div class="container body-content">
+
+        
         @RenderBody()
         <hr />
         <footer>
