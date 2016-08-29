@@ -4,35 +4,26 @@
 <script type="text/javascript" src="/scripts/jquery-1.10.2.min.js"></script>
 
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-
+<h2>@ViewBag.category</h2>
 
 <div id="filterPanel">
     @Html.ActionLink("Back to cateogries", "ShopByCategories","Home")
     <br/>
+    <span>Minimum Price: </span>
+    <div id="min-price-selector"></div>
+    <div id="minPrice">@ViewBag.minPrice</div>
+    <br/>
+    <span>Maximum Price: </span>
+    <div id="max-price-selector"></div>
+    <div id="maxPrice">@ViewBag.maxPrice</div>
+    <div id="filters"></div>
+    <span>Sort by: </span><br/>
     <select id="order-by" onchange="filterProducts()">
         <option value="name,asc">Name, Ascending</option>
         <option value="name,desc">Name, Descending</option>
         <option value="price,asc">Price, Ascending</option>
         <option value="price,desc">Price, Descending</option>
-    </select><br/>
-    <span>minPrice</span>
-    <div id="min-price-selector"></div>
-    <div id="minPrice">@ViewBag.minPrice</div>
-    <br/>
-    <span>maxPrice</span>
-    <div id="max-price-selector"></div>
-    <div id="maxPrice">@ViewBag.maxPrice</div>
-    <div id="filters"></div>
+    </select><br />
 </div>
 
 <div id="products-panel">
@@ -105,6 +96,9 @@
         }
     }
 
+    $(function(){
+        setInterval(changePriceRange, 300);
+    });
     $('#max-price-slider').change(changePriceRange);
     $('#max-price-slider').change(filterProducts);
     $('#min-price-slider').change(changePriceRange);

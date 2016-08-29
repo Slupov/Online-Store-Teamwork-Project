@@ -41,6 +41,19 @@ actionLinkButton {
         height: auto;
     }
 
+footer {
+     position:fixed;
+ bottom:0;
+ left:0;
+    margin: 0;
+    padding: 0;
+}
+
+footer p {
+    padding: 0;
+    margin: 0
+}
+
 #searchBox {
     width: 464px;
     margin-top: 10px;
@@ -125,9 +138,10 @@ select {
 #product-container {
     margin: 30px;
 }
-#product-container > * {
-    display: inline-block;
-}
+
+    #product-container > * {
+        display: inline-block;
+    }
 
 #image-container {
     float: left;
@@ -143,9 +157,9 @@ select {
     display: inline-block;
 }
 
-#product-info > * {
-    margin: 15px;
-}
+    #product-info > * {
+        margin: 15px;
+    }
 
 #rating-average > span {
     font-size: 12pt;
