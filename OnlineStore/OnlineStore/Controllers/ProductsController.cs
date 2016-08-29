@@ -30,7 +30,7 @@ namespace OnlineStore.Controllers
             {"Camera Lenses",new string[] { "Canon", "Sony", "Samsung" } },
             {"Smart Phones",new string[] {"Samsung","Apple","LG","Moto"} },
             {"Phone Cases",new string[] {"Iphone","Samsung","LG"} },
-            {"Phone Accessories",new string[] {"USD","SD","Protector"} },
+            {"Phone Accessories",new string[] {"USB","SD","Protector"} },
             {"Tower PCs",new string[] {"Dell","Asus","Acer","Lenovo","HP"} },
             {"PC Monitors",new string[] {"Acer","Dell","Asus","Samsung"} },
             {"Tablets",new string[] {"Samsung","Apple","Nexus","Android","Tablet PC"} },
@@ -237,9 +237,10 @@ namespace OnlineStore.Controllers
         {
             foreach (string word in a)
             {
-                if (b.Contains(word))
+                foreach (string word2 in b)
                 {
-                    return true;
+                    if (word2.Contains(word))
+                        return true;
                 }
             }
             return false;
