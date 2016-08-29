@@ -172,3 +172,11 @@ select {
 #purchase-amount {
     width: 40px;
 }
+
+.comment-section-row{
+background-color:#e7d7e4;
+border-bottom:1px;
+}
+.comment-section-row td{
+border-bottom:1pt solid black;
+}

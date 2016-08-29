@@ -4,6 +4,9 @@
 @{
     OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
 }
+@{ 
+    var productComments = db.Comments.Where(c => c.ProductID == Model.ProductID).ToList();
+}
 <script type="text/javascript" src="/scripts/jquery-1.10.2.min.js"></script>
 
 
@@ -30,11 +33,7 @@
     <div id="product-info">
         <div id="product-name">@Html.DisplayFor(model => model.ProductName)</div>
         <div id="product-description"><ul>
-                @foreach (var li in descriptionListItems)
-                {
-                    string actualLi = li.Substring(4, li.Length - 9);
-                    <li>@actualLi</li>
-                }
+                @Html.Raw(Model.Description)
             </ul>
         </div>
         <div id="rating-average">
@@ -65,6 +64,36 @@
         }
     </div>
 </div>
+
+<table id="comment-section">
+
+    <tr>
+        <th>User</th>
+        <th>Title</th>
+        <th>Comment</th>
+    </tr>
+    
+        @foreach (var comment in productComments)
+        {
+            <tr class="comment-section-row">
+                <td>
+                    @{ 
+                        var dbUser = db.Members.Where(m => m.MemberID == comment.MemberID).First().Username;
+                        @Html.Raw(dbUser);
+                    }        
+                </td>
+                <td class="comment-title">
+                    @comment.Title;
+                </td>
+                <td class="comment-message">
+                    @Html.Raw(comment.Message);
+                </td>
+            </tr>
+
+        }
+    
+    
+</table>
 
 <p>
     @if (User.Identity.IsAuthenticated)
