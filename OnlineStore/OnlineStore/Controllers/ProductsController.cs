@@ -71,7 +71,7 @@ namespace OnlineStore.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.MemberID = new SelectList(db.Members, "MemberID", "Username");
+            ViewBag.MemberID = User.Identity.GetUserName();
             return View();
         }
 
@@ -82,15 +82,14 @@ namespace OnlineStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductID,ProductName,ProductType,Description,Stock,Price,ImageSource,MemberID")] Product product)
         {
-            if (ModelState.IsValid)
-            {
+            var aspUserName = User.Identity.GetUserName();
+
+            product.MemberID = db.Members.First(m => m.Username == aspUserName).MemberID;
+
                 db.Products.Add(product);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                return RedirectToAction("MySales");
 
-            ViewBag.MemberID = new SelectList(db.Members, "MemberID", "Username", product.MemberID);
-            return View(product);
         }
 
         // GET: Products/Edit/5
@@ -154,7 +153,7 @@ namespace OnlineStore.Controllers
             db.Transactions.RemoveRange(product.Transactions);
             db.Products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("MySales");
         }
 
         protected override void Dispose(bool disposing)
