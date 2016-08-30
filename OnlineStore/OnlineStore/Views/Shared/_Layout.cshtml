@@ -60,9 +60,8 @@
         <nav class="nav-categories">
             @foreach (var cat in db.Products.Select(p => p.ProductType).Distinct())
             {
-
-                <button>@Html.ActionLink(cat, "BrowseProducts", "Products", new { category = cat }, null)</button>
-
+                   <button>@Html.ActionLink(cat, "BrowseProducts", "Products", new { category = cat }, null)</button>
+                
             }
         </nav>
 
@@ -93,4 +92,5 @@
             let searchTerms = '@(ViewBag.searchTerms)';
             $('#search_Text').val(searchTerms);
         })
+
 </script>
