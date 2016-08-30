@@ -70,15 +70,11 @@
 @if (User.Identity.IsAuthenticated)
 {
     <div id="new-comment-section">
-        <input type="text" id="new-comment-title" /><br />
+        <h2 style="width:100vh;">Add a comment</h2>
+        <input type="text" id="new-comment-title" placeholder="Comment title ..." /><br />
         <textarea id="new-comment-message" rows="10" cols="80"></textarea>
-        <select id="new-comment-rating">
-            <option value="1"></option>
-            <option value="2"></option>
-            <option value="3"></option>
-            <option value="4"></option>
-            <option value="5"></option>
-        </select>
+        <br />
+        
         <div id="5-stars">
             <img src="../../Content/3d-gray-star.png" id="1" height="30px" onclick="javascript:updateStars()" />
             <img src="../../Content/3d-gray-star.png" id="2" height="30px" onclick="javascript:updateStars()" />
@@ -86,9 +82,12 @@
             <img src="../../Content/3d-gray-star.png" id="4" height="30px" onclick="javascript:updateStars()" />
             <img src="../../Content/3d-gray-star.png" id="5" height="30px" onclick="javascript:updateStars()" />
         </div>
-        <input type="button" onclick="newComment()" />
+        <input type="button" onclick="newComment()" value="Submit comment" />
+
     </div>
 }
+<br />
+
 <table id="comment-section">
 
     @*<tr>
@@ -121,7 +120,7 @@
     {
         <tr class="comment-section-row">
             <td>
-                <h4 id="comment-title">@comment.Title</h4>
+                <h3 id="comment-title">@comment.Title</h3>
                 posted by @{
                     var dbUser = db.Members.Where(m => m.MemberID == comment.MemberID).First();
                     @Html.ActionLink(dbUser.Username, "Details", "Members", new { id = dbUser.MemberID }, null)
@@ -222,4 +221,8 @@
             $('#' + i).attr("src", "../../Content/3d-yellow-star.png");
         }
     }
+</script>
+
+<script>
+    CKEDITOR.replace('new-comment-message');
 </script>

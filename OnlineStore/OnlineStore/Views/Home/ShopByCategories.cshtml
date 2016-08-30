@@ -13,7 +13,6 @@
             categoryUrlText = categoryUrlText.Replace(" ", "%20");
         }
 
-
         <div class="floated_img">
             <img style="-webkit-user-select: none" src=@categoryUrlText>
             @Html.ActionLink(category, "BrowseProducts", "Products", new { category = category }, null)
