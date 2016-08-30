@@ -1,13 +1,26 @@
 ﻿@using Microsoft.AspNet.Identity
+@using OnlineStore.Models;
+
+@{ 
+    OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
+   
+}
+
 @if (Request.IsAuthenticated)
 {
+    var aspUserName = User.Identity.GetUserName();
+    var dbUser = db.Members.First(m => m.Username == aspUserName);
+
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "Details", "Members", new { id = dbUser.MemberID }, null)
+            </li>
+            <li>
+                @Html.ActionLink("Settings", "Index", "Manage", routeValues: null, htmlAttributes: new { @class="settings-wheel" })
             </li>
             <li>@Html.ActionLink("Cart", "MyCart", "Carts")</li>
 

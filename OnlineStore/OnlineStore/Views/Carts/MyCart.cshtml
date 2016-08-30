@@ -9,8 +9,9 @@
 @{
     ViewBag.Title = "MyCart";
     var aspUserName = User.Identity.GetUserName();
-    var count = 0;
-    var totalPrice = Model.Select(c => c.Product.Price).Sum();
+    var totalCount = Model.Select(c=>c.Quantity).Sum();
+    var counter = 0;
+    var totalPrice = Model.Select(c => c.Product.Price*c.Quantity).Sum();
 }
 
 <h2>@aspUserName 's Cart</h2>
@@ -21,58 +22,44 @@
             Product Number
         </th>
         <th>
+            Product
+        </th>
+        <th>
             Seller
         </th>
         <th>
-           ProductName
-        </th>
-
-        <th>
-            ProductType
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Cart Quantity
+            Quantity
         </th>
         <th>
             Price
         </th>
         <th>
-           ImageSource
+            ImageSource
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        count++;
+        counter++;
         var product = db.Products.Where(p => p.ProductID == item.ProductID).First();
         var seller = db.Members.Where(m => m.MemberID == product.MemberID).First();
         string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + product.ImageSource;
 
         <tr>
             <td>
-                @count
+                @counter
+            </td>
+            <td>
+                @Html.ActionLink(product.ProductName, "Details", "Products", new {id = product.ProductID}, null) in @Html.ActionLink(product.ProductType, "BrowseProducts", "Products", new {category = product.ProductType}, null)
             </td>
             <td>
                 @seller.Username
             </td>
             <td>
-                @Html.DisplayFor(modelItem => product.ProductName)
-            </td>
+                @Html.DisplayFor(m => item.Quantity)            </td>
             <td>
-                @Html.DisplayFor(modelItem => product.ProductType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => product.Description)
-            </td>
-            <td>
-                Add functionality
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => product.Price)
+                @Html.DisplayFor((modelItem => product.Price))$
             </td>
             <td>
                 <div class="floated_img">
@@ -80,16 +67,16 @@
                 </div>
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MemberID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.MemberID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MemberID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.CartID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CartID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CartID })
             </td>
         </tr>
     }
 
 </table>
 
-<h2>Total count : @count</h2>
+<h2>Total count : @totalCount</h2>
 <h2>Total price : @totalPrice</h2>
 
 @Html.ActionLink("Buy all","BuyCart","Carts",new {memberID=Model.Select(c=>c.MemberID).FirstOrDefault()},null)

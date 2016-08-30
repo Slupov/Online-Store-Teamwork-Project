@@ -1,14 +1,12 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-   background:url(../images/purple.png)
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -43,6 +41,19 @@ actionLinkButton {
         height: auto;
     }
 
+footer {
+     position:fixed;
+ bottom:0;
+ left:0;
+    margin: 0;
+    padding: 0;
+}
+
+footer p {
+    padding: 0;
+    margin: 0
+}
+
 #searchBox {
     width: 464px;
     margin-top: 10px;
@@ -54,9 +65,8 @@ actionLinkButton {
     padding: 15px 0 15px 20px;
     font-size: 16px;
     font-family: Montserrat, sans-serif;
- 
     height: 10px;
-    margin-left:0;
+    margin-left: 0;
     margin-right: 0;
     color: #a9a9a9;
     outline: none;
@@ -64,15 +74,14 @@ actionLinkButton {
     float: right;
     box-sizing: border-box;
     transition: all 0.15s;
-    border-top-width:0px;
+    border-top-width: 0px;
     border-right-width: 1px;
     border-left-width: 0px;
     border-bottom-width: 0px;
-  
 }
 
 #search_button {
-   border:none;
+    border: none;
     background: white;
     width: 60px;
     float: right;
@@ -80,15 +89,14 @@ actionLinkButton {
     text-align: center;
     height: 30px;
     cursor: pointer;
-    color : #a9a9a9;
+    color: #a9a9a9;
     border-radius: 0px 15px 15px 0px;
-    
 }
 
 select {
     -webkit-appearance: button;
     -moz-appearance: button;
-    -webkit-user-select: none; 
+    -webkit-user-select: none;
     -moz-user-select: none;
     -webkit-padding-end: 20px;
     -moz-padding-end: 20px;
@@ -97,8 +105,6 @@ select {
     background-color: white; /* fallback color if gradients are not supported */
     background-position: center right;
     background-repeat: no-repeat;
-    
-  
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
     color: #a9a9a9;
     font-size: inherit;
@@ -111,41 +117,91 @@ select {
     border-radius: 10px 0px 0px 10px;
     height: 30px;
     cursor: pointer;
-    outline:none;
-    
+    outline: none;
     border-top-width: 0px;
     border-bottom-width: 0px;
     border-left-width: 0px;
     border-right-width: 0px;
-
 }
 
-#myAside{
-    float:left;
-    height:100%;
-    background-color:pink;
-    color:black;
-}
-#myAside nav{
-    
-    padding-left: 20px;
-    padding-right: 20px;
-   width:202px;
-
+#filterPanel {
+    float: left;
+    width: 20%;
+    height: 100%;
 }
 
-#myAside li{
-    
+#products-panel {
+    float: right;
+    width: 80%;
 }
-#myAside a{
-   font-size:20px;
-   background-color:aqua;
-  border-width:2px;
-  border-color:aliceblue;
+
+#product-container {
+    margin: 30px;
 }
-#myAside-div{
-    height:100vh;
+
+    #product-container > * {
+        display: inline-block;
+    }
+
+#image-container {
+    float: left;
+    width: 30%;
 }
-#myAside button{
-    stroke-width:180px;
+
+#product-name {
+    font-size: 16pt;
+}
+
+#product-info {
+    width: 50%;
+    display: inline-block;
+}
+
+    #product-info > * {
+        margin: 15px;
+    }
+
+#rating-average > span {
+    font-size: 12pt;
+}
+
+#purchase-panel {
+    float: right;
+}
+
+#purchase-amount {
+    width: 40px;
+}
+
+.comment-section-row{
+background-color:#e7d7e4;
+border-bottom:1px;
+}
+.comment-section-row td{
+border-bottom:1pt solid black;
+}
+
+footer{
+height:30px;
+}
+footer p{
+margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+color:white;
+}
+
+a.settings-wheel{
+background: url(../images/settings-wheel.png) no-repeat top;
+     display: inline;
+     text-indent: -9999px; /* hides the link text */
+     background-size: 20px 20px;
+     height: auto; 
+    width: auto; 
+    max-width: 30px; 
+    max-height: 22px;
+    margin-top:15px;
 }

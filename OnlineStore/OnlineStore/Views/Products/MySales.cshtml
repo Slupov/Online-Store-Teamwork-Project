@@ -60,7 +60,7 @@
             @Html.DisplayFor(modelItem => item.ProductType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.Raw(item.Description)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Stock)
@@ -74,9 +74,9 @@
             </div>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.MemberID }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
             @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MemberID })
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
         </td>
     </tr>
     }

@@ -30,7 +30,7 @@ namespace OnlineStore.Controllers
             {"Camera Lenses",new string[] { "Canon", "Sony", "Samsung" } },
             {"Smart Phones",new string[] {"Samsung","Apple","LG","Moto"} },
             {"Phone Cases",new string[] {"Iphone","Samsung","LG"} },
-            {"Phone Accessories",new string[] {"USD","SD","Protector"} },
+            {"Phone Accessories",new string[] {"USB","SD","Protector"} },
             {"Tower PCs",new string[] {"Dell","Asus","Acer","Lenovo","HP"} },
             {"PC Monitors",new string[] {"Acer","Dell","Asus","Samsung"} },
             {"Tablets",new string[] {"Samsung","Apple","Nexus","Android","Tablet PC"} },
@@ -46,7 +46,9 @@ namespace OnlineStore.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Member);
+            var aspUserName = User.Identity.GetUserName();
+            var dbUsername = db.Members.First(m => m.Username == aspUserName).Username;
+            var products = db.Products.Where(p=>p.Member.Username==dbUsername);
             return View(products.ToList());
         }
 
@@ -69,7 +71,7 @@ namespace OnlineStore.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.MemberID = new SelectList(db.Members, "MemberID", "Username");
+            ViewBag.MemberID = User.Identity.GetUserName();
             return View();
         }
 
@@ -80,15 +82,14 @@ namespace OnlineStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductID,ProductName,ProductType,Description,Stock,Price,ImageSource,MemberID")] Product product)
         {
-            if (ModelState.IsValid)
-            {
+            var aspUserName = User.Identity.GetUserName();
+
+            product.MemberID = db.Members.First(m => m.Username == aspUserName).MemberID;
+
                 db.Products.Add(product);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                return RedirectToAction("MySales");
 
-            ViewBag.MemberID = new SelectList(db.Members, "MemberID", "Username", product.MemberID);
-            return View(product);
         }
 
         // GET: Products/Edit/5
@@ -112,13 +113,14 @@ namespace OnlineStore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "ProductID,ProductName,ProductType,Description,Stock,Price,ImageSource,MemberID")] Product product)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect("../MySales");
             }
             ViewBag.MemberID = new SelectList(db.Members, "MemberID", "Username", product.MemberID);
             return View(product);
@@ -145,9 +147,13 @@ namespace OnlineStore.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
+            db.Comments.RemoveRange(product.Comments);
+            db.Ratings.RemoveRange(product.Ratings);
+            db.Carts.RemoveRange(product.Carts);
+            db.Transactions.RemoveRange(product.Transactions);
             db.Products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("MySales");
         }
 
         protected override void Dispose(bool disposing)
@@ -178,7 +184,7 @@ namespace OnlineStore.Controllers
 
             if (checkedFilters != null)
             {
-                products = products.Where(p => ArraysHaveCommonWords(checkedFilters,p.ProductName.Split(' '))).ToList();
+                products = products.Where(p => ArraysHaveCommonWords(checkedFilters, p.ProductName.Split(' '))).ToList();
             }
             if (category != "" && category != "All categories")
             {
@@ -237,9 +243,10 @@ namespace OnlineStore.Controllers
         {
             foreach (string word in a)
             {
-                if (b.Contains(word))
+                foreach (string word2 in b)
                 {
-                    return true;
+                    if (word2.Contains(word))
+                        return true;
                 }
             }
             return false;
