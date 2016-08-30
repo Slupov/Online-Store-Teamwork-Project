@@ -78,8 +78,8 @@
             <tr class="comment-section-row">
                 <td>
                     @{ 
-                        var dbUser = db.Members.Where(m => m.MemberID == comment.MemberID).First().Username;
-                        @Html.Raw(dbUser);
+                        var dbUser = db.Members.Where(m => m.MemberID == comment.MemberID).First();
+                        @Html.ActionLink(dbUser.Username, "Details", "Members", new { id = dbUser.MemberID }, null)
                     }        
                 </td>
                 <td class="comment-title">
