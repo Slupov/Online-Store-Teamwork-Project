@@ -55,6 +55,18 @@
             </div>
         </div>
     </div>
+    <aside id="myAside">
+        <nav class="nav-categories">
+            @foreach (var cat in db.Products.Select(p => p.ProductType).Distinct())
+            {
+
+                <button>@Html.ActionLink(cat, "BrowseProducts", "Products", new { category = cat }, null)</button>
+
+            }
+        </nav>
+
+    </aside>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
