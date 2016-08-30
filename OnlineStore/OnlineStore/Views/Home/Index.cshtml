@@ -1,4 +1,8 @@
 ﻿@using OnlineStore.Models;
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/slider.js")"></script>
+}
 @{
     ViewBag.Title = "Home Page";
     OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
@@ -12,19 +16,18 @@
     var randomLens = lenses[rnd.Next(1, lenses.Count)];
 }
 
-<div class="jumbotron">
-    <h1>TOP 3 MOST EXPENSIVE ITEMS </h1>
-    <p class="lead">
-        @foreach (var item in saleProducts)
-        {
-            string imgSrc = "https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/" + item.ImageSource;
-            <div class="floated_img" style="margin-left:100px;">
-                <img style="-webkit-user-select: none" src=@imgSrc>
-        <p>@Html.ActionLink(@item.ProductName, "Details", "Products", new { id = item.ProductID }, null)</p>
-        <p>@item.Price $</p>
-    </div>
-        }</p>
-        </div>
+
+
+<div class="jumbotron" style="width:1260px;">
+    <div id="slider">
+        <ul class="slides">
+            <li class="slide"><img src="~/images/tvbanner.jpg"/></li>
+            <li class="slide"><img src="~/images/tabletsbanner.jpg"/></li>
+            <li class="slide"><img src="~/images/cameralensesbanner.jpg"/></li>
+        </ul>
+    </div> 
+      
+</div>
 
         <div class="row">
             <div class="col-md-4">
