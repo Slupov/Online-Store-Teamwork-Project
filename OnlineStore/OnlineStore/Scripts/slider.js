@@ -5,7 +5,7 @@ $(function () {
     //settings for slider
     var width = 1260;
     var animationSpeed = 1000;
-    var pause = 3000;
+    var pause = 4000;
     var currentSlide = 1;
 
     //cache DOM elements
