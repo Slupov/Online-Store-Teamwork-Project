@@ -283,9 +283,9 @@ height:auto;
 
 }
 #myAside button {
-    padding-left: 1px;
-    padding-right: 1px;
-    width: 201px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 195px;
     background-color: transparent;
     stroke-width: 180px;
     border:none;
