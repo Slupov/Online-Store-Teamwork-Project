@@ -48,19 +48,24 @@ namespace OnlineStore.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CommentID,MemberID,ProductID,Message")] Comment comment)
+        public ActionResult Create(string memberUsername,int productID, string messsage, string title, int rating)
         {
-            if (ModelState.IsValid)
+            int memberID = db.Members.Single(m => m.Username == memberUsername).MemberID;
+            Comment comment = new Comment()
             {
-                db.Comments.Add(comment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                MemberID = memberID,
+                ProductID = productID,
+                Message = messsage,
+                Title = title,
+                Rating = rating
+            };
 
-            ViewBag.MemberID = new SelectList(db.Members, "MemberID", "Username", comment.MemberID);
-            ViewBag.ProductID = new SelectList(db.Products, "ProductID", "ProductName", comment.ProductID);
-            return View(comment);
+            db.Comments.Add(comment);
+            db.Ratings.Single(r => r.ProductID == productID && r.Value == rating).Amount =
+                db.Ratings.Single(r => r.ProductID == productID && r.Value == rating).Amount + 1;
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "Products",new {id=productID});
         }
 
         // GET: Comments/Edit/5

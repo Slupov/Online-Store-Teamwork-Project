@@ -4,8 +4,9 @@
 @{
     OnlineStorePSGMEntities db = new OnlineStorePSGMEntities();
 }
-@{ 
+@{
     var productComments = db.Comments.Where(c => c.ProductID == Model.ProductID).ToList();
+    productComments.Reverse();
 }
 <script type="text/javascript" src="/scripts/jquery-1.10.2.min.js"></script>
 
@@ -32,12 +33,13 @@
 
     <div id="product-info">
         <div id="product-name">@Html.DisplayFor(model => model.ProductName)</div>
-        <div id="product-description"><ul>
+        <div id="product-description">
+            <ul>
                 @Html.Raw(Model.Description)
             </ul>
         </div>
         <div id="rating-average">
-            @{ double avrgRating = Math.Round(Model.Ratings.Select(r => r.Value*r.Amount).Sum()/(double) Model.Ratings.Select(r => r.Amount).Sum(), 1); }
+            @{ double avrgRating = Math.Round(Model.Ratings.Select(r => r.Value * r.Amount).Sum() / (double)Model.Ratings.Select(r => r.Amount).Sum(), 1); }
             <span>Rating:  @avrgRating</span>
         </div>
 
@@ -46,41 +48,62 @@
             {
                 for (int i = 0; i < rating.Value; i++)
                 {
-                    <img src="../../Content/3d-yellow-star.png" height="20"/>
+                    <img src="../../Content/3d-yellow-star.png" height="20" />
                 }
                 <span>@rating.Amount</span>
-                <br/>
+                <br />
             }
         </div>
-        <div id="seller">Seller: @Html.ActionLink(Model.Member.Username, "Details", "Members", new {id = Model.MemberID}, null)</div>
+        <div id="seller">Seller: @Html.ActionLink(Model.Member.Username, "Details", "Members", new { id = Model.MemberID }, null)</div>
     </div>
 
     <div id="purchase-panel">
-        <input type="text" id="purchase-amount" value="1"/>
+        <input type="text" id="purchase-amount" value="1" />
 
         @if (User.Identity.IsAuthenticated)
         {
-            <input type="submit" id="myLink" value="Add to cart" onclick="addToCart()"/>
+            <input type="submit" id="myLink" value="Add to cart" onclick="addToCart()" />
         }
     </div>
 </div>
 
+@if (User.Identity.IsAuthenticated)
+{
+    <div id="new-comment-section">
+        <input type="text" id="new-comment-title" /><br />
+        <textarea id="new-comment-message" rows="10" cols="80"></textarea>
+        <select id="new-comment-rating">
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            <option value="4"></option>
+            <option value="5"></option>
+        </select>
+        <div id="5-stars">
+            <img src="../../Content/3d-gray-star.png" id="1" height="30px" onclick="javascript:updateStars()" />
+            <img src="../../Content/3d-gray-star.png" id="2" height="30px" onclick="javascript:updateStars()" />
+            <img src="../../Content/3d-gray-star.png" id="3" height="30px" onclick="javascript:updateStars()" />
+            <img src="../../Content/3d-gray-star.png" id="4" height="30px" onclick="javascript:updateStars()" />
+            <img src="../../Content/3d-gray-star.png" id="5" height="30px" onclick="javascript:updateStars()" />
+        </div>
+        <input type="button" onclick="newComment()" />
+    </div>
+}
 <table id="comment-section">
 
-    <tr>
-        <th>User</th>
-        <th>Title</th>
-        <th>Comment</th>
-    </tr>
-    
+    @*<tr>
+            <th>User</th>
+            <th>Title</th>
+            <th>Comment</th>
+        </tr>
         @foreach (var comment in productComments)
         {
             <tr class="comment-section-row">
                 <td>
-                    @{ 
+                    @{
                         var dbUser = db.Members.Where(m => m.MemberID == comment.MemberID).First();
                         @Html.ActionLink(dbUser.Username, "Details", "Members", new { id = dbUser.MemberID }, null)
-                    }        
+                    }
                 </td>
                 <td class="comment-title">
                     @comment.Title;
@@ -90,9 +113,33 @@
                 </td>
             </tr>
 
-        }
-    
-    
+                        }*@
+    <tr>
+        <th>Comments</th>
+    </tr>
+    @foreach (var comment in productComments)
+    {
+        <tr class="comment-section-row">
+            <td>
+                <h4 id="comment-title">@comment.Title</h4>
+                posted by @{
+                    var dbUser = db.Members.Where(m => m.MemberID == comment.MemberID).First();
+                    @Html.ActionLink(dbUser.Username, "Details", "Members", new { id = dbUser.MemberID }, null)
+                          }
+                <div id="comment-rating-stars">
+                @for (int i = 0; i < comment.Rating; i++)
+                {
+                    <img src="../../Content/3d-yellow-star.png" height="30px"/>
+                }</div>
+                <hr />
+                @Html.Raw(comment.Message)<br />
+            </td>
+
+        </tr>
+
+                    }
+
+
 </table>
 
 <p>
@@ -100,7 +147,7 @@
     {
         if (User.Identity.GetUserName() == Model.Member.Username)
         {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }); @Html.Raw(" | ")
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }); @Html.Raw(" | ")
             @Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }); @Html.Raw(" |")
         }
     }
@@ -110,7 +157,7 @@
 </p>
 
 <script>
-
+    var rating = 0;
     function addToCart() {
 
         let productID = '@(Model.ProductID)';
@@ -121,12 +168,58 @@
             url: "/Carts/AddToCart",
             data: {
                 id: productID,
-                amount:$('#purchase-amount').val()
+                amount: $('#purchase-amount').val()
             },
             success: function () {
                 alert("Value Added");
-            }// or any other indication if you want to show
+            } // or any other indication if you want to show
 
         });
+    }
+
+    function newComment() {
+
+        if (rating == 0) {
+            alert("Please, leave a rating");
+        }
+        else if ($('#new-comment-title').val() == "" || $('#new-comment-message').val()) {
+            alert('Please enter comment title and message!');
+        }
+        else {
+            let productID = '@(Model.ProductID)';
+            let memberUsername = '@(User.Identity.GetUserName())';
+
+            $.ajax({
+                type: "POST",
+                traditional: true,
+                url: "/Comments/Create",
+                data: {
+                    memberUsername: memberUsername,
+                    productID: productID,
+                    messsage: $('#new-comment-message').val(),
+                    title: $('#new-comment-title').val(),
+                    rating: rating
+                },
+                success: function (response) {
+                    let returnedComments = $(response).find('#comment-section').html();
+                    $("#comment-section").html(returnedComments);
+                }
+            });
+
+            $('#new-comment-message').val("");
+            $('#new-comment-title').val("");
+        }
+    }
+
+    function updateStars() {
+
+        let count = event.target.id;
+        rating = count;
+        for (let i = 1; i <= 5; i++) {
+            $('#' + i).attr("src", "../../Content/3d-gray-star.png");
+        }
+        for (let i = 1; i <= count; i++) {
+            $('#' + i).attr("src", "../../Content/3d-yellow-star.png");
+        }
     }
 </script>
