@@ -19,11 +19,10 @@
             <li>
                 @Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "Details", "Members", new { id = dbUser.MemberID }, null)
             </li>
+            <li>@Html.ActionLink("Cart", "MyCart", "Carts", routeValues: null, htmlAttributes: new { @class = "cart-logo" })</li>
             <li>
                 @Html.ActionLink("Settings", "Index", "Manage", routeValues: null, htmlAttributes: new { @class="settings-wheel" })
             </li>
-            <li>@Html.ActionLink("Cart", "MyCart", "Carts")</li>
-
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
     }

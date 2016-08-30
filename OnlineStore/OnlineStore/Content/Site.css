@@ -204,6 +204,20 @@ background: url(../images/settings-wheel.png) no-repeat top;
     max-width: 30px; 
     max-height: 22px;
     margin-top:15px;
+    margin-left:10px;
+}
+
+a.cart-logo{
+background: url(../images/cartlogo.png) no-repeat top;
+     display: inline;
+     text-indent: -9999px; /* hides the link text */
+     background-size: 30px 30px;
+     height: auto; 
+    width: auto; 
+    max-width: 30px; 
+    max-height: 22px;
+    margin-top:10px;
+    margin-left:0px;
 }
 
 #slider{
@@ -267,3 +281,4 @@ background: url(../images/settings-wheel.png) no-repeat top;
     margin-top:15px;
 
 }
+
