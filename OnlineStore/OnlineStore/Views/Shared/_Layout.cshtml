@@ -57,12 +57,14 @@
         </div>
     </div>
     <aside id="myAside">
-        <nav class="nav-categories">
-            @foreach (var cat in db.Products.Select(p => p.ProductType).Distinct())
+        <div>
+            <nav class="nav-categories">
+                @foreach (var cat in db.Products.Select(p => p.ProductType).Distinct())
             {
-                <button onclick="redirect('@cat');">@Html.ActionLink(cat, "BrowseProducts", "Products", new { category = cat }, null)</button>
-            }
-        </nav>
+            <button onclick="redirect('@cat');">@Html.ActionLink(cat, "BrowseProducts", "Products", new { category = cat }, null)</button>
+                }
+            </nav>
+        </div>
 
     </aside>
 
