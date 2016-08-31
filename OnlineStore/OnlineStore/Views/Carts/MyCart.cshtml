@@ -54,7 +54,7 @@
                 @Html.ActionLink(product.ProductName, "Details", "Products", new {id = product.ProductID}, null) in @Html.ActionLink(product.ProductType, "BrowseProducts", "Products", new {category = product.ProductType}, null)
             </td>
             <td>
-                @seller.Username
+                @Html.ActionLink(@seller.Username, "Details", "Members", new { id = @seller.MemberID }, null)
             </td>
             <td>
                 @Html.DisplayFor(m => item.Quantity)            </td>
