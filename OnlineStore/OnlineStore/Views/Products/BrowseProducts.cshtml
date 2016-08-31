@@ -39,7 +39,9 @@
         string[] descriptionListItems = item.Description.Split(';').ToArray();
         double price = item.Price;
         <div class="floated_img">
+            <a href="/Products/Details/@item.ProductID">
             <img style="-webkit-user-select: none" src=@imgSrc>
+                </a>
             <p>@Html.ActionLink(shortProductName, "Details", "Products", new {id = item.ProductID}, null)</p>
             <p>@price $</p>
         </div>
