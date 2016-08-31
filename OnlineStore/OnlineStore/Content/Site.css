@@ -178,12 +178,23 @@ select {
 
 .comment-section-row{
 background-color:#e7d7e4;
-border-bottom:1px;
+border-bottom:10pt solid white;
 }
 .comment-section-row td{
 border-bottom:1pt solid black;
+padding-left:30px;
+padding-right:30px;
+padding-bottom:10px;
+margin-bottom:10px;
+font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+font-size:16px;
 }
-
+    .comment-section-row hr {
+        border-top-color:darkgray;
+    }
+#comment-title{
+    font-weight:bold;
+}
 footer{
 height:30px;
 }
