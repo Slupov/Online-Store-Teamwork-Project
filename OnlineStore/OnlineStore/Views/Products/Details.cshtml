@@ -48,7 +48,7 @@
             {
                 for (int i = 0; i < rating.Value; i++)
                 {
-                    <img src="../../Content/3d-yellow-star.png" height="20" />
+                <img src="../../Content/3d-yellow-star.png" height="20" />
                 }
                 <span>@rating.Amount</span>
                 <br />
@@ -58,11 +58,12 @@
     </div>
 
     <div id="purchase-panel">
-        <input type="text" id="purchase-amount" value="1" />
-
         @if (User.Identity.IsAuthenticated)
         {
-            <input type="submit" id="myLink" value="Add to cart" onclick="addToCart()" />
+        <input type="text" id="purchase-amount" value="1" />
+
+
+        <input type="submit" id="myLink" value="Add to cart" onclick="addToCart()" />
         }
     </div>
 </div>
@@ -74,7 +75,7 @@
         <input type="text" id="new-comment-title" name="commentMessage" placeholder="Comment title ..." /><br />
         <textarea id="new-comment-message" rows="10" cols="80"></textarea>
         <br />
-        
+
         <div id="5-stars">
             <img src="../../Content/3d-gray-star.png" id="1" height="30px" onclick="javascript:updateStars()" />
             <img src="../../Content/3d-gray-star.png" id="2" height="30px" onclick="javascript:updateStars()" />
@@ -118,25 +119,26 @@
     </tr>
     @foreach (var comment in productComments)
     {
-        <tr class="comment-section-row">
-            <td>
-                <h3 id="comment-title">@comment.Title</h3>
-                posted by @{
-                    var dbUser = db.Members.Where(m => m.MemberID == comment.MemberID).First();
-                    @Html.ActionLink(dbUser.Username, "Details", "Members", new { id = dbUser.MemberID }, null)
-                          }
-                <div id="comment-rating-stars">
+    <tr class="comment-section-row">
+        <td>
+            <h3 id="comment-title">@comment.Title</h3>
+            posted by @{
+                var dbUser = db.Members.Where(m => m.MemberID == comment.MemberID).First();
+                @Html.ActionLink(dbUser.Username, "Details", "Members", new { id = dbUser.MemberID }, null)
+            }
+            <div id="comment-rating-stars">
                 @for (int i = 0; i < comment.Rating; i++)
                 {
-                    <img src="../../Content/3d-yellow-star.png" height="30px"/>
-                }</div>
-                <hr />
-                @Html.Raw(comment.Message)<br />
-            </td>
+                <img src="../../Content/3d-yellow-star.png" height="30px" />
+                }
+            </div>
+            <hr />
+            @Html.Raw(comment.Message)<br />
+        </td>
 
-        </tr>
+    </tr>
 
-                    }
+                }
 
 
 </table>
@@ -146,7 +148,7 @@
     {
         if (User.Identity.GetUserName() == Model.Member.Username)
         {
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }); @Html.Raw(" | ")
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }); @Html.Raw(" | ")
             @Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }); @Html.Raw(" |")
         }
     }
@@ -185,7 +187,7 @@
         if (rating == 0) {
             alert("Please, leave a rating");
         }
-        else if ($('#new-comment-title').val() == "" ||commentMessage=="") {
+        else if ($('#new-comment-title').val() == "" || commentMessage == "") {
             alert('Please enter comment title and message!');
         }
         else {
@@ -226,4 +228,3 @@
         }
     }
 </script>
-
