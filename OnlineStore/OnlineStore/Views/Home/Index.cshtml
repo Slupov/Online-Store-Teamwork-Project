@@ -34,17 +34,21 @@
             <div class="col-md-4">
                 <h2>Random tablet</h2>
                 <div class="floated_img">
-                    <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomTablet.ImageSource">
-                    <p>@Html.ActionLink(@randomTablet.ProductName, "Details", "Products", new { id = randomTablet.ProductID }, null)</p>
-                    <p>@randomTablet.Price $</p>
-                    @Html.ActionLink("Shop tablets", "BrowseProducts", "Products", new { category = "Tablets" }, null)
-                </div>
+                    <a href="/Products/Details/@randomTablet.ProductID">
+                        <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomTablet.ImageSource">
+                        </a>
+                        <p>@Html.ActionLink(@randomTablet.ProductName, "Details", "Products", new { id = randomTablet.ProductID }, null)</p>
+                        <p>@randomTablet.Price $</p>
+                        @Html.ActionLink("Shop tablets", "BrowseProducts", "Products", new { category = "Tablets" }, null)
+</div>
             </div>
 
             <div class="col-md-4">
                 <h2>Random camera lens</h2>
                 <div class="floated_img">
-                    <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomLens.ImageSource">
+                    <a href="/Products/Details/@randomLens.ProductID">
+                        <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomLens.ImageSource">
+                    </a>
                     <p>@Html.ActionLink(@randomLens.ProductName, "Details", "Products", new { id = randomLens.ProductID }, null)</p>
                     <p>@randomLens.Price $</p>
                     @Html.ActionLink("Shop camera lenses", "BrowseProducts", "Products", new { category = "Camera Lenses" }, null)
@@ -54,10 +58,12 @@
             <div class="col-md-4">
                 <h2>Random TV</h2>
                 <div class="floated_img">
-                    <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomTV.ImageSource">
-                    <p>@Html.ActionLink(@randomTV.ProductName, "Details", "Products", new { id = randomTV.ProductID }, null)</p>
-                    <p>@randomTV.Price $</p>
-                    @Html.ActionLink("Shop TVs", "BrowseProducts", "Products", new { category = "TV" }, null)
-                </div>
+                    <a href="/Products/Details/@randomTV.ProductID">
+                        <img style="-webkit-user-select: none" src="https://raw.githubusercontent.com/Slupov/Online-Store-Teamwork-Project/master/OnlineStore/OnlineStore/product-images/@randomTV.ImageSource">
+                        </a>
+                        <p>@Html.ActionLink(@randomTV.ProductName, "Details", "Products", new { id = randomTV.ProductID }, null)</p>
+                        <p>@randomTV.Price $</p>
+                        @Html.ActionLink("Shop TVs", "BrowseProducts", "Products", new { category = "TV" }, null)
+</div>
             </div>
         </div>
