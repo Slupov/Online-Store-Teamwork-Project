@@ -71,7 +71,7 @@
 {
     <div id="new-comment-section">
         <h2 style="width:100vh;">Add a comment</h2>
-        <input type="text" id="new-comment-title" placeholder="Comment title ..." /><br />
+        <input type="text" id="new-comment-title" name="commentMessage" placeholder="Comment title ..." /><br />
         <textarea id="new-comment-message" rows="10" cols="80"></textarea>
         <br />
         
@@ -156,6 +156,9 @@
 </p>
 
 <script>
+    CKEDITOR.replace('new-comment-message');
+
+
     var rating = 0;
     function addToCart() {
 
@@ -177,17 +180,18 @@
     }
 
     function newComment() {
+        let commentMessage = CKEDITOR.instances['new-comment-message'].getData();
 
         if (rating == 0) {
             alert("Please, leave a rating");
         }
-        else if ($('#new-comment-title').val() == "" || $('#new-comment-message').val()) {
+        else if ($('#new-comment-title').val() == "" ||commentMessage=="") {
             alert('Please enter comment title and message!');
         }
         else {
             let productID = '@(Model.ProductID)';
             let memberUsername = '@(User.Identity.GetUserName())';
-
+            console.log(commentMessage);
             $.ajax({
                 type: "POST",
                 traditional: true,
@@ -195,7 +199,7 @@
                 data: {
                     memberUsername: memberUsername,
                     productID: productID,
-                    messsage: $('#new-comment-message').val(),
+                    message: commentMessage,
                     title: $('#new-comment-title').val(),
                     rating: rating
                 },
@@ -205,7 +209,7 @@
                 }
             });
 
-            $('#new-comment-message').val("");
+            CKEDITOR.instances['new-comment-message'].setData("");
             $('#new-comment-title').val("");
         }
     }
@@ -223,6 +227,3 @@
     }
 </script>
 
-<script>
-    CKEDITOR.replace('new-comment-message');
-</script>

@@ -47,25 +47,19 @@ namespace OnlineStore.Controllers
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [ValidateInput(false)]
         [HttpPost]
-        public ActionResult Create(string memberUsername,int productID, string messsage, string title, int rating)
+        public ActionResult Create(string memberUsername, [Bind(Include = "rating,title,productID,message")] Comment comment)
         {
             int memberID = db.Members.Single(m => m.Username == memberUsername).MemberID;
-            Comment comment = new Comment()
-            {
-                MemberID = memberID,
-                ProductID = productID,
-                Message = messsage,
-                Title = title,
-                Rating = rating
-            };
+            comment.MemberID = memberID;
 
             db.Comments.Add(comment);
-            db.Ratings.Single(r => r.ProductID == productID && r.Value == rating).Amount =
-                db.Ratings.Single(r => r.ProductID == productID && r.Value == rating).Amount + 1;
+            db.Ratings.Single(r => r.ProductID == comment.ProductID && r.Value == comment.Rating).Amount =
+               db.Ratings.Single(r => r.ProductID == comment.ProductID && r.Value == comment.Rating).Amount + 1;
             db.SaveChanges();
 
-            return RedirectToAction("Details", "Products",new {id=productID});
+            return RedirectToAction("Details", "Products",new {id=comment.ProductID});
         }
 
         // GET: Comments/Edit/5
