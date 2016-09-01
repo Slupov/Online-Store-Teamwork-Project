@@ -207,7 +207,9 @@
                 },
                 success: function (response) {
                     let returnedComments = $(response).find('#comment-section').html();
+                    let returnedProduct = $(response).find('#product-info').html();
                     $("#comment-section").html(returnedComments);
+                    $('#product-info').html(returnedProduct);
                 }
             });
 
