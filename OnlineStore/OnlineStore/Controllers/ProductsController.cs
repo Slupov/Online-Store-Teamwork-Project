@@ -191,14 +191,6 @@ namespace OnlineStore.Controllers
                 products = products.Where(p => p.ProductType.Equals(category)).ToList();
             }
 
-            if (searchTerms != null)
-            {
-                foreach (string term in searchTerms.Split(' '))
-                {
-                    products = products.Where(p => p.ProductName.ToLower().Contains(term.ToLower())).ToList();
-                }
-            }
-
             switch (orderBy)
             {
                 case "name,asc":
@@ -220,6 +212,14 @@ namespace OnlineStore.Controllers
 
             products = products.Where(p => p.Price > minPrice).ToList();
             products = products.Where(p => p.Price < maxPrice).ToList();
+
+            if (searchTerms != null)
+            {
+                foreach (string term in searchTerms.Split(' '))
+                {
+                    products = products.Where(p => p.ProductName.ToLower().Contains(term.ToLower())).ToList();
+                }
+            }
 
             ViewBag.category = category;
             ViewBag.filters = filters;
